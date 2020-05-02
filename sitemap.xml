@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://evanxlh.github.io/2020/04/27/app-multi-environments/</loc>
+    
+    <lastmod>2020-05-02T16:03:47.324Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://evanxlh.github.io/photography/index.html</loc>
     
     <lastmod>2020-05-02T15:02:01.467Z</lastmod>
@@ -23,13 +30,6 @@
   </url>
   
   <url>
-    <loc>https://evanxlh.github.io/archive/index.html</loc>
-    
-    <lastmod>2020-05-02T10:17:11.898Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://evanxlh.github.io/categories/index.html</loc>
     
     <lastmod>2020-05-02T10:17:11.898Z</lastmod>
@@ -37,9 +37,9 @@
   </url>
   
   <url>
-    <loc>https://evanxlh.github.io/2020/04/27/app-multi-environments/</loc>
+    <loc>https://evanxlh.github.io/archive/index.html</loc>
     
-    <lastmod>2020-05-02T10:17:11.881Z</lastmod>
+    <lastmod>2020-05-02T10:17:11.898Z</lastmod>
     
   </url>
   
