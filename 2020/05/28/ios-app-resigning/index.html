@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="baidu-site-verification" content="093lY4ziMu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="我的个人博客">
+    <meta name="keyword"  content="Evan, 爱问, 埃文, 博客, iOS, Developer, 软件工程师, 程序员">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
+    <title>
+        
+          iOS app 重签名及发布至 AppStore - Evan | 愛問
+        
+    </title>
+
+    <link rel="canonical" href="https://evanxlh.github.io/2020/05/28/ios-app-resigning/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+        
+<link rel="stylesheet" href="/css/dusign-light.css">
+
+        
+<link rel="stylesheet" href="/css/dusign-common-light.css">
+
+        
+<link rel="stylesheet" href="/css/font-awesome.css">
+
+        
+<link rel="stylesheet" href="/css/toc.css">
+
+        <!-- background effects end -->
+    
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/fonts.googleapis.css">
+
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- photography -->
+    
+<link rel="stylesheet" href="/css/photography.css">
+
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- background effects start -->
+    
+    <!-- background effects end -->
+
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            
+                background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../../../../img/default-post.jpg')
+                /*post*/
+            
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#App构建与发布" title="App构建与发布">App构建与发布</a>
+                            
+                              <a class="tag" href="/tags/#App重签名" title="App重签名">App重签名</a>
+                            
+                        </div>
+                        <h1>iOS app 重签名及发布至 AppStore</h1>
+                        <h2 class="subheading">代码签名原理，ipa, xcarchive 脚本一键重签名，尽在这里</h2>
+                        <span class="meta">
+                            2020-05-28, Evan | 愛問
+                        </span>
+
+                        
+                            <div class="blank_box"></div>
+                            <span class="meta">
+                                字数: <span class="post-count">4.2k</span>, 
+                                阅读时间: <span class="post-count">16</span> 
+                                分钟
+                            </span>
+                            <div class="blank_box"></div>
+                            <!-- 不蒜子统计 start -->
+                            <span class="meta">
+                                浏览次数: <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+                            </span>
+                            <!-- 不蒜子统计 end -->
+                        
+
+                    </div>
+                
+
+                </div>
+            </div>
+        </div>      
+    </div>
+
+    
+    <div class="waveWrapper">
+        <div class="wave wave_before" style="background-image: url('/img/wave-light.png')"></div>
+        <div class="wave wave_after" style="background-image: url('/img/wave-light.png')"></div>
+    </div>
+    
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="/">Evan | 愛問</a> -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">关于</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/categories/">分类</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/photography/">摄影</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="iOS-app-重签名及发布至-AppStore"><a href="#iOS-app-重签名及发布至-AppStore" class="headerlink" title="iOS app 重签名及发布至 AppStore"></a>iOS app 重签名及发布至 AppStore</h1><p>由于公司有个项目请了外包团队来开发，但不提供源码，只提供 xcarchive 或 ipa 包，而做为公司又不可能将证书及私钥发给外包团队，让他们来打包。所以重签名就是绕不过的坎了，只能自己来做这一工作了。刚开始直接从网上找资料，直接用现成的脚本作些修改来进行重签名，可都会出现各种问题。无耐之下，只能翻阅苹果官网文档以及 <I>Troubleshooting</I>，最终完成重签名，并上传至 AppStore。现在将重签名过程重新整理下，记录下来方便以后查阅，也希望能帮助到有需要的同学们。</p>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>代码签名(<I>Code Signing</I>)是操作系统应用的一种安全技术，用来证明 app 是你创建的。一旦 app 被签名后，操作系统就可以检测出 App 是否被意外或恶意地修改过，是否来自一个受信任的发布机构或组织，或个人。代码签名最基础、最核心部分就是数据的加密哈希函数和非对称加密，然后在此基础上，定义一些规则与策略，来完成代码签名。接下来，我们先来了解下签名相关的一些核心概念。</p>
+<h4 id="加密哈希函数"><a href="#加密哈希函数" class="headerlink" title="加密哈希函数"></a>加密哈希函数</h4><p>加密哈希函数可以接收任意大小的数据，然后应用特定算法处理输入数据，并输出固定大小的哈希数据(如128 / 256 位等)。一些常见的哈希算法有 <I>SHA-1, SHA-2</I> 等等。在代码签名过程中，我们用它来生成代码数据的信息摘要(<I>message digest</I>, Apple 称它为 <I>seal</I>, 即封条，用来验证数据是否被更改)。</p>
+<h4 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h4><p><a href="https://en.wikipedia.org/wiki/Public-key_cryptography" target="_blank" rel="noopener">非对称加密</a>(<I>public key cryptography, 或者 asymmetric cryptography</I>) 提供两组密钥：公钥和私钥。公钥可以公开并分享给他人，而私钥只能自己拥有。公称和私钥都可以用来加解密，但在一次加密解密过程中，需要配对使用。不管是用公钥加密，还是私钥加密，最后通过解密后，都能还原出明文，正如下图所示：<br><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/security-asymmetric.jpg" alt="Security Asymmetric">  </p>
+<h4 id="信息摘要"><a href="#信息摘要" class="headerlink" title="信息摘要"></a>信息摘要</h4><p>信息摘要(<I>message digest</I>)是由代码签名软件创建的代码各个部分的校验和或哈希的集合，可以用来检测数据是否被更改。 拿写书信为例，写好的书信放入信封，然后进行密封。如果收信人发现密封损坏，他就会知道这封信肯定被打开过或被他人动过手脚。所以 Apple 也称它为 <I>seal</I>，意为密封或封条。通过私钥加密后，就成了代码签名中的加密信息摘要(<I>encrypted message digest</I>, 或者 <I>encrypted seal</I>)。  </p>
+<h4 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h4><p>数字证书(<I>Digital Certificate</I>) 是用于验证数字证书 <I>持有者或发送者</I> 的身份的数据集合，来证明签名者公钥的真实性。比如  X.509 证书包含以下一些信息: </p>
+<ul>
+<li>结构信息: 版本，序列号，用于创建签名的消息摘要算法等</li>
+<li>证书颁发机构的数字签名</li>
+<li>有关证书持有者的信息: 名称，电子邮件地址，公司名称，所有者的公钥等</li>
+<li>有效期: 证书在此期限之前或之后无效</li>
+<li>证书扩展: 包含其他信息的属性，如证书的允许用途<br><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/anatomy-of-digital-certificate.png" alt="Digital Certificate" style="zoom:70%;" /><br>下图为 <I>Apple Worldwide Developer Relations Certification Authority</I> 证书中所包含的信息：<br><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/certificate-apple.png" alt="Apple Worldwide Developer Relations Certification Authority" style="zoom:67%;" /></li>
+</ul>
+<h4 id="数字身份"><a href="#数字身份" class="headerlink" title="数字身份"></a>数字身份</h4><p>数字身份(<I>Digital Identity</I>) 是公钥-私钥对以及对应的数字证书的组合。当我们向苹果申请到签名证书后，导入到 KeyChain Access 中，我们就获取到了数字身份，如下图所示:<br><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/digital-identity.jpg" alt="Digital Identity"></p>
+<h4 id="证书颁发机构"><a href="#证书颁发机构" class="headerlink" title="证书颁发机构"></a>证书颁发机构</h4><p>证书颁发机构(Certification Authority) 是颁发数字证书的人员或组织，它确保数字证书没有被更改，并且表明颁发数字证书者的身份。如 Apple， 我们可以从 Apple 提供的工具来创建数字身份(<I>Digital Identity</I>)，并申请数字证书。</p>
+<h4 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h4><p>数字签名(<I>Digital Signatures</I>) 就是加密信息摘要及数字证书的组合，是一种使用非对称加密来保证数据完整性的方法。它可以用来验证数据签名者的身份，跟我们使用传统签名(用墨水在纸上写上自己的名字)方法一样，都是用来表明及验证身份的。但数字签名除了身份验证外，还能检查出数据是否被修改过。</p>
+<h4 id="规范要求"><a href="#规范要求" class="headerlink" title="规范要求"></a>规范要求</h4><p><I>Code Requirements</I>，我就译成规范要求吧，是操作系统用来评估代码签名的规则。进行评估的系统根据其目标决定在评估时要应用哪些要求。比如 macos 的 <I>Gatekeeper</I> 有一个规则，即在首次允许启动应用程序之前，必须由Mac App Store或开发人员ID证书签名。再比如一个应用程序可以强制执行一个规范要求，即该应用程序使用的所有插件均应由 Apple 签名。有关规范的详细描述，可以查看<a href="https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/AboutCS/AboutCS.html#//apple_ref/doc/uid/TP40005929-CH3-SW2" target="_blank" rel="noopener">苹果官方 Code Requirements</a>。</p>
+<h2 id="数字签名原理"><a href="#数字签名原理" class="headerlink" title="数字签名原理"></a>数字签名原理</h2><h3 id="数字签名过程"><a href="#数字签名过程" class="headerlink" title="数字签名过程"></a>数字签名过程</h3><p>接下来，我们通过图例来阐述单个数据(这里指一个文件)的数字签名的过程： </p>
+<ol>
+<li>签名者使用加密哈希算法，生成信息摘要</li>
+<li>使用私钥对信息摘要进行加密</li>
+<li>将加密的信息摘要、有关签名者数字证书的信息，以及数据本身打包在一起，完成数字签名<br><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/code-signing.png" alt="Digital Signatures Process"> </li>
+</ol>
+<p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/signing-doc.png" alt="a" style="zoom:60%;" /></p>
+<h3 id="验证数字签名过程"><a href="#验证数字签名过程" class="headerlink" title="验证数字签名过程"></a>验证数字签名过程</h3><p>比如我们对一个文档进行了数据签名，那接收者如何去验证数字签名的正确性呢？下面我们结合图例来阐述下验证的过程： </p>
+<ol>
+<li>接收者从签名者的证书中获取签名者的公钥</li>
+<li>使用公钥对加密信息摘要进行解密</li>
+<li>接收者使用证书中指定的算法创建数据的新的信息摘要</li>
+<li>将新的信息摘要与数字签名中传递的信息摘要的解密副本进行比较。 如果它们匹配，则接收到的数据肯定于签名者创建的原始数据相同。<br><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/verify-signature.png" alt="Verify digital signature" style="zoom:60%;" /></li>
+</ol>
+<h2 id="iOS-App-代码签名"><a href="#iOS-App-代码签名" class="headerlink" title="iOS App 代码签名"></a>iOS App 代码签名</h2><p>iOS 代码签名比之前提到的<a href="###数字签名过程">数字签名过程</a>会复杂一些，在签名过程中，还需要加入 <I>Provisioning Profile</I>，并且要对各种代码文件分别进行数字签名。</p>
+<h3 id="需要对哪些文件签名"><a href="#需要对哪些文件签名" class="headerlink" title="需要对哪些文件签名"></a>需要对哪些文件签名</h3><p>iOS app 有三类文件需要签名: </p>
+<ul>
+<li><p><strong>内嵌代码 (<I>Nested code</I>)</strong><br>包括所有的打包在 App 内的 libraries, frameworks, helpers, tools， 以及 app 依赖的其它组件。<font color=red>注意静态库请不要内嵌，否则重签名后的 ipa 文件上传到 iTunes Connect 会报错。</font></p>
+</li>
+<li><p><strong>Mach-O 可执行文件 (<I>Mach-O executables</I>)</strong><br>签名软件会将签名信息直接写入可执行文件中。可执行文件包括 App 可执行文件 和 内嵌的 Framework 中的可执行文件。</p>
+</li>
+<li><p><strong>资源文件 (<I>Resources</I>)</strong><br>除了代码及可执行文件以外的文件都属于资源文件，都需要进行签名。每个资源文件签完名后，签名信息会被记录 <a href="###CodeResources">CodeResoures</a> 中，存放在 <code>_CodeSignature</code> 目录下。App 中可能会有多个 <code>_CodeSignature</code> 目录，因为 App 的 <I> main bundle</I> 中可能包含有内嵌 <I>framework bundle</I>, 或者其它的 <I>resource bundle</I>。</p>
+</li>
+</ul>
+<h3 id="Entitlements"><a href="#Entitlements" class="headerlink" title="Entitlements"></a>Entitlements</h3><p>权限文件是一个特殊的 <em>plist</em> 文件，可以被认为是写入应用签名中的字符串，该字符串允许特定功能或使该应用选择特定服务。 操作系统在允许应用访问某些功能之前会检查这些字符串。 比如，在允许应用程序在运行时访问 Wi-Fi 信息之前，该应用程序必须具有 <em>Wi-Fi Info</em> 权利。 关于 <em>Entitlements</em> 更多的详细信息，<a href="https://developer.apple.com/library/archive/technotes/tn2318/_index.html#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG33" target="_blank" rel="noopener">请点这里</a>。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="meta-string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>application-identifier<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>AA11BB22CC.com.company.appresignature.test<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>beta-reports-active<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>com.apple.developer.networking.wifi-info<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>com.apple.developer.team-identifier<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>AA11BB22CC<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>get-task-allow<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>keychain-access-groups<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>AA11BB22CC.*<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Provisioning-Profile"><a href="#Provisioning-Profile" class="headerlink" title="Provisioning Profile"></a>Provisioning Profile</h3><p><I>Provisioning Profile</I> 是一种系统配置文件，可让您在iOS设备或Mac上安装应用程序，用于在设备上启动一个或多个应用程序并使用某些服务。</p>
+<p><I>Provisioning Profile</I> 文件包含签名证书、app bundle ID、Entitlements 信息，或者 deivce ids，不过 <I>Provisioning Profile</I> 可以分为 <I>Development / Distribution</I> 类型，而 <I>Distribution</I> 又分为 <I>AppStore / AdHoc / Inhouse</I> / Developer ID。每种类型的 <I>Provisioning Profile</I> 包含的信息都有些不一样，下图为 AppStore <I>Provisioning Profile</I> 包含的信息：</p>
+<p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/provisioning-profile.jpg" alt="AppStore Provisioning Profile" style="zoom:50%;" /></p>
+<h3 id="CodeResources"><a href="#CodeResources" class="headerlink" title="CodeResources"></a>CodeResources</h3><p><I>CodeResources</I> 是一个特殊的 Plist 文件，<I>bundle</I> 中的每个资源文件的加密<a href="###信息摘要">信息摘要</a>都记录在这个 <I>Plist</I> 文件中。除了这些加密信息摘要以外，它还包括一些签名规则，可用于接收端进行签名验证。下图为 <I>CodeResources</I> 文件所包含的内容：</p>
+<p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/code-resource.png" alt="CodeResources" style="zoom:60%;" /></p>
+<h3 id="App-签名"><a href="#App-签名" class="headerlink" title="App 签名"></a>App 签名</h3><p>大多数时候，Xcode可以帮我们自动完成所有的签名操作。但如果是手动来签名的话，我们需要使用 Apple 提供的  <code>codesign</code> 程序来签名。<code>codesign</code> 的签名规则如下：</p>
+<ul>
+<li><code>codesign</code> 可以直接给一个 <em>Bundle</em> 进行签名，这里的 <em>Bundle</em> 可以是 <em>app bundle (.app)</em> ，<em>framework bundle (.framework)</em>，<em>dynamic library (.dylib)</em> 等。</li>
+<li>它采用递归策略对 <code>Bundle</code> 下的每个文件进行签名。<code>Bundle</code> 实际上就是一个文件夹。</li>
+<li>可执行文件的加密信息摘要会被直接写入可执行文件的本身。这里说的可执行文件可以是 executable, Mach-O 文件类型，比如 app 的可执行文件，framework 中的可执行文件。</li>
+<li>先从最底层 <code>Bundle</code> ，再签上层 <code>Bundle</code>。比如先签 <em>app bundle</em> 中的内嵌的每个 <em>framework bundle</em> ，然后签 <em>app bundle</em>。</li>
+</ul>
+<p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/ios-app-code-signing.png" style="zoom:40%;" /></p>
+<p>上图为 iOS app 代码签名的概览图，现在我们结合这张图来介绍 app 的签名流程。</p>
+<ul>
+<li><p>准备好签名要用到的所有资源：<em>ipa</em> 或 <em>xcarchive</em>，provisioning profile，签名证书。</p>
+</li>
+<li><p>将 App 中的各类代码文件(如库、可执行文件、脚本、资源文件，以及其他一些像代码的数据)按照<a href="###数字签名过程">数字签名过程</a>并结合签名规则进行签名，并把签名得到的 encryted seal 记录在 CodeResource 文件中。可执行文件 (Mach-O文件) 的 encryted seal 不会记录在 CodeResource， 而是直接写入可执行文件本身。</p>
+</li>
+<li><p>签完名后，重新打包 IPA。</p>
+</li>
+</ul>
+<h2 id="App-重签名实战-★"><a href="#App-重签名实战-★" class="headerlink" title="App 重签名实战 ★"></a>App 重签名实战 <font color=red>★</font></h2><p>接下来，我们用苹果提供的命令行程序 <code>codesign</code> 来实现手动签名。如想了解 <code>codesign</code> 命令的具体用法，可以查看<a href="https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html#//apple_ref/doc/uid/TP40005929-CH4-SW2" target="_blank" rel="noopener">这篇文章</a>的 <I>Signing Code Manually</I> 小节。</p>
+<h3 id="重签名环境"><a href="#重签名环境" class="headerlink" title="重签名环境"></a>重签名环境</h3><ul>
+<li>MacOS: 10.15.4 </li>
+<li>Xcode: version 11.5 </li>
+</ul>
+<h3 id="App-重签名参数配置文件"><a href="#App-重签名参数配置文件" class="headerlink" title="App 重签名参数配置文件"></a>App 重签名参数配置文件</h3><p>App 重签名需要提供一些参数，我们把这些参数都集中放到这个<a href="https://gitee.com/evanxlh/MyComputerToolkit/raw/master/Shells/ios-app-resigning/resigning-params-configuration.plist" target="_blank" rel="noopener">参数配置文件</a>中。以下为参数列表：</p>
+<ul>
+<li><p><strong>RootWorkingDirectory</strong> (必须)<br>Shell 脚本工作的根目录，<em>.ipa</em> 或 <em>.xcarchive</em>，provisioning profile 必需放在这个目录下。 <em>.ipa</em> 或者 <em>.xcarchive</em>，两者不能同时存在。</p>
+</li>
+<li><p><strong>SignIdentity</strong> (必须)<br>签名用的身份信息，可以在命令控制台终端输入 <code>security find-identity</code> ，列出 KeyChain Access 中的所有 <em>identities</em>，然后选择你要用的 <em>identity</em>.</p>
+</li>
+<li><p><strong>NewNameForIPA</strong> (可选)<br>重签名后输出的 <em>ipa</em> 文件名，不包括 <em>.ipa</em> 后缀。不提供则使用默认名。</p>
+</li>
+<li><p><strong>AppleID &amp; AppleIDPassword</strong>  (可选)<br>Apple ID 和 password 可选。如果提供，可以将重签名好的 <em>ipa</em> 直接上传到 iTunes Connect。</p>
+</li>
+</ul>
+<p>所以在开始签名前，你的工作目录大概是这样，不过 脚本文件随便放哪都行：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>重签名 ipa 的工作目录</th>
+<th>重签名 xcarchive 的工作目录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/root-working-dir-ipa.png" alt="Working Directory" style="zoom:67%;" /></td>
+<td><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/root-working-dir-xcarchive.png" alt="xcarchive working directory" style="zoom:67%;" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Shell-脚本重签名"><a href="#Shell-脚本重签名" class="headerlink" title="Shell 脚本重签名"></a>Shell 脚本重签名</h3><p>Shell 脚本签名分为 10 个步骤，10 个步骤需要按照先后顺序执行， 你也可以在直接查看<a href="https://gitee.com/evanxlh/MyComputerToolkit/raw/master/Shells/ios-app-resigning/ios-app-resigning.sh" target="_blank" rel="noopener">完整的 shell 脚本</a>。<font color=red>脚本要求所有路径中不能有空格，所以请注意您 App 中的所有文件或文件夹名都不能带空格。</font></p>
+<h4 id="1-读取重签名参数配置文件"><a href="#1-读取重签名参数配置文件" class="headerlink" title="1. 读取重签名参数配置文件"></a>1. 读取重签名参数配置文件</h4><p>执行脚本后，终端会提示你将重签名用的参数配置文件拖到控制台(这样就可以得到文件的绝对路径)。<a href="https://gitee.com/evanxlh/MyComputerToolkit/raw/master/Shells/ios-app-resigning/resigning-params-configuration.plist" target="_blank" rel="noopener">点我获取参数配置的样例文件</a>。</p>
+<p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/resigning-params.png" alt="Read resigning params" style="zoom:67%;" />   </p>
+<h4 id="2-准备需要重签名的-app"><a href="#2-准备需要重签名的-app" class="headerlink" title="2. 准备需要重签名的 app"></a>2. 准备需要重签名的 app</h4><p>脚本支持对 <em>ipa, xcarchive</em> 两种包类型进行重签名。如果是 <em>ipa</em>，我们需要先将其解压；如果是 <em>xcarchive</em>，我们需要自己创建 <strong>IPA</strong> 的内容目录结构，并将 <em>xcarchive</em> 里面的 <em>app bundle</em> 拷贝到创建的 <em>Payload</em> 目录中去。如果 Xcode 工程开启 <code>EMBEDDED_CONTENT_CONTAINS_SWIFT</code>，我们还需要将 <em>SwiftSupport</em> 放入 <strong>IPA</strong>。 </p>
+<p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/embed-swift-standard-libraries.png" style="zoom:67%;" /> </p>
+<p>最后 <strong>IPA</strong> 中的内容就如下图所示（SwiftSupport 需视实际情况来决定）：</p>
+<p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/ios-app-resigning/ipa-contents.png" alt="App Contents" style="zoom:67%;" /> </p>
+<h4 id="3-删除原有的-CodeSignature-目录"><a href="#3-删除原有的-CodeSignature-目录" class="headerlink" title="3. 删除原有的 _CodeSignature 目录"></a>3. 删除原有的 _CodeSignature 目录</h4><p>先递归查找 <em>app bundle</em> 中所有的 <code>_CodeSignature</code> 目录，然后将它们逐一删除。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">oldSignatures=`find $app_contents_root_path -name "_CodeSignature"`</span><br><span class="line"></span><br><span class="line">for signature in $oldSignatures; do</span><br><span class="line">  rm -rf $signature</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-生成-entitlements-plist"><a href="#4-生成-entitlements-plist" class="headerlink" title="4. 生成 entitlements.plist"></a>4. 生成 entitlements.plist</h4><p><code>entitlements.plist</code> 在签名 <em>app bundle</em> 时需要使用，我们可以从提供的 <em>Provisioning Profile</em> 中提取出相关信息，并生成 <code>entitlements.plist</code>。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从 Provisioning Profile 中提取出来的 entitlements 信息存储路径</span></span><br><span class="line">entitlements_plist_path="$&#123;root_working_dir_path&#125;/entitlements.plist"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 *.mobileprovision 文件中的信息输出到一个临时plist</span></span><br><span class="line">security cms -D -i $new_profile_path &gt; tempProfile.plist</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从临时plist中提取出 entitlements 信息并写入 entitlements.plist</span></span><br><span class="line">/usr/libexec/PlistBuddy -x -c 'Print :Entitlements' tempProfile.plist &gt; $entitlements_plist_path</span><br></pre></td></tr></table></figure>
+<h4 id="5-替换-Provisioning-Profile"><a href="#5-替换-Provisioning-Profile" class="headerlink" title="5. 替换 Provisioning Profile"></a>5. 替换 Provisioning Profile</h4><p>将新的 <em>Provisioning Profile</em> 拷贝到 <em>app bundle</em> 中，替换原有的 <em>Provisioning Profile</em>。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cp $new_profile_path $app_profile_path</span><br></pre></td></tr></table></figure>
+<h4 id="6-替换-Bundle-ID"><a href="#6-替换-Bundle-ID" class="headerlink" title="6. 替换 Bundle ID"></a>6. 替换 Bundle ID</h4><p>新的 <em>bundle id</em>，我们可以从之前生成的 <code>entitlements.plist</code> 中的 <em>application-identifier</em>  提取，但它包含了 <em>Team ID</em>, 需要将其移除。然后用新的 <em>bundle id</em> 替换 <em>app bundle</em> 中的 <code>Info.plist</code> 中的 <em>bundle id</em>。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> E6ABDGA.com.company.appresignature.test</span></span><br><span class="line">local app_identifier=`/usr/libexec/PlistBuddy -c "Print :application-identifier" $entitlements_plist_path`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> https://stackoverflow.com/questions/10586153/split-string-into-an-array-in-bash</span></span><br><span class="line">IFS='.' read -r -a components &lt;&lt;&lt; "$&#123;app_identifier&#125;"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Remove `E6ABDGA`: https://askubuntu.com/questions/435996/how-can-i-remove-an-entry-from<span class="_">-a</span>-list-in<span class="_">-a</span>-shells-script</span></span><br><span class="line">unset components[0]</span><br><span class="line">new_bundle_id=`joinStringComponents "." "$&#123;components[@]&#125;"`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Replace the bundle id <span class="keyword">in</span> Info.plist with new bundle id.</span></span><br><span class="line">plutil -replace CFBundleIdentifier -string $new_bundle_id $app_infoplist_path</span><br></pre></td></tr></table></figure>
+<h4 id="7-对内嵌-Frameworks-签名"><a href="#7-对内嵌-Frameworks-签名" class="headerlink" title="7. 对内嵌 Frameworks 签名"></a>7. 对内嵌 Frameworks 签名</h4><p>万事俱备只欠东风，我们现在正式开始签名。首先找出 <em>app bundle</em> 中的内嵌 Frameworks 和动态库，然后使用<a href="###数字身份">签名身份</a>逐一进行签名。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">local frameworks=`find $app_frameworks_path -name "*.framework" -o -name "*.dylib"`</span><br><span class="line"></span><br><span class="line">for framework in $frameworks; do</span><br><span class="line">  codesign -f -s "$&#123;sign_identity&#125;" $framework</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="8-对-App-Bundle-签名"><a href="#8-对-App-Bundle-签名" class="headerlink" title="8. 对 App Bundle 签名"></a>8. 对 App Bundle 签名</h4><p>对 <em>app bundle</em> 签名除了需要<a href="###数字身份">签名身份</a>， 还需要使用 <code>entitlements.plist</code>。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">codesign -f -s "$&#123;sign_identity&#125;" --entitlements "$&#123;entitlements_plist_path&#125;" $app_bundle_path</span><br></pre></td></tr></table></figure></p>
+<h4 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9. 验证签名"></a>9. 验证签名</h4><p>到目前为止，app 的签名工作已完成，现在我们来验证签名是否有效：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html<span class="comment">#//apple_ref/doc/uid/TP40005929-CH4-SW9</span></span></span><br><span class="line">codesign --verify --deep --strict --verbose=2 $app_bundle_path</span><br></pre></td></tr></table></figure></p>
+<p>如果验证失败，控制台会输出详细的错误。如果验证成功，控制台会输出:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/path/to/Test.app: valid on disk</span><br><span class="line">/path/to/Test.app: satisfies its Designated Requirement</span><br></pre></td></tr></table></figure></p>
+<h4 id="10-制作已重签名的-IPA"><a href="#10-制作已重签名的-IPA" class="headerlink" title="10. 制作已重签名的 IPA"></a>10. 制作已重签名的 IPA</h4><p>签名验证也成功了，最后我们将所有的 App 内容重新压缩成 <em>.ipa</em> 文件，然后输出到指定目录(ResignedIPAs目录)。在压缩文件时，注意要忽略 <code>.DS_Store</code>。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">local root_content_names=`ls $app_contents_root_path`</span><br><span class="line">local contents_will_zipped=""</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出 app contents 根目录下的所有内容</span></span><br><span class="line">for name in $root_content_names; do</span><br><span class="line">  contents_will_zipped+="$name "</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">cd $app_contents_root_path</span><br><span class="line">zip -qr $new_ipa_name $contents_will_zipped -x "*.DS_Store"</span><br><span class="line">mv $new_ipa_name $ipa_output_directory</span><br></pre></td></tr></table></figure></p>
+<h4 id="11-上传至-iTunes-Connect-可选"><a href="#11-上传至-iTunes-Connect-可选" class="headerlink" title="11. 上传至 iTunes Connect (可选)"></a>11. 上传至 iTunes Connect (可选)</h4><p>这一步为可选的，我们也可以将重签名的 <em>ipa</em> 直接通过命令行上传至 iTunes Connect。如果在重签名参数配置文件中有填写 <em>Apple ID</em> 和 <em>Apple ID Password</em>，Shell 脚本将执行这一步。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xcrun altool --upload-app -f $reigned_ipa_path -t iOS -u $apple_id -p $apple_id_password</span><br></pre></td></tr></table></figure></p>
+<h3 id="常见错误解决"><a href="#常见错误解决" class="headerlink" title="常见错误解决"></a>常见错误解决</h3><p>常见的签名错误你都可以在这两个地方找到 <a href="https://developer.apple.com/library/archive/technotes/tn2318/_index.html" target="_blank" rel="noopener">Troubleshooting Failed Signature Verification</a> ，<a href="https://developer.apple.com/library/archive/technotes/tn2415/_index.html" target="_blank" rel="noopener">Entitlements Troubleshooting</a></p>
+<h3 id="脚本及参数配置文件获取"><a href="#脚本及参数配置文件获取" class="headerlink" title="脚本及参数配置文件获取"></a>脚本及参数配置文件获取</h3><p>以下是完整的重签名 shell 脚本和参数配置文件：<br><a href="https://gitee.com/evanxlh/MyComputerToolkit/raw/master/Shells/ios-app-resigning/ios-app-resigning.sh" target="_blank" rel="noopener">ios-app-resigning.sh</a><br><a href="https://gitee.com/evanxlh/MyComputerToolkit/raw/master/Shells/ios-app-resigning/resigning-params-configuration.plist" target="_blank" rel="noopener">resigning-params-configuration.plist</a><br>写了这么久，总算完成了。可以好好休息下了！🍹</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://en.wikipedia.org/wiki/Public-key_cryptography" target="_blank" rel="noopener">Asymmetric Cryptography</a><br><a href="https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Introduction/Introduction.html" target="_blank" rel="noopener">Code Signing Guide</a><br><a href="https://developer.apple.com/library/archive/documentation/Security/Conceptual/cryptoservices/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011172-CH1-SW1" target="_blank" rel="noopener">Cryptographic Services Guide</a><br><a href="https://developer.apple.com/library/archive/documentation/Security/Conceptual/Security_Overview/Introduction/Introduction.html#//apple_ref/doc/uid/TP30000976-CH1-SW1" target="_blank" rel="noopener">Software Security Overview</a><br><a href="https://developer.apple.com/library/archive/technotes/tn2318/_index.html" target="_blank" rel="noopener">Technical Note TN2318: Troubleshooting Failed Signature Verification</a><br><a href="https://developer.apple.com/library/archive/technotes/tn2415/_index.html" target="_blank" rel="noopener">Technical Note TN2415: Entitlements Troubleshooting</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/04/27/app-multi-environments/" data-toggle="tooltip" data-placement="top" title="App多环境配置探索">下一篇 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- tip start -->
+                
+
+                
+                <!-- tip end -->
+
+                <!-- Music start-->
+                
+                
+<link rel="stylesheet" href="/css/music-player/fonts/iconfont.css">
+
+
+<link rel="stylesheet" href="/css/music-player/css/reset.css">
+
+
+<link rel="stylesheet" href="/css/music-player/css/player.css">
+
+
+<div class="music-player">
+    <audio class="music-player__audio" ></audio>
+    <div class="music-player__main">
+        <div class="music-player__blur"></div>
+        <div class="music-player__disc">
+            <div class="music-player__image">
+                <img width="100%" src="" alt="">
+            </div>
+            <div class="music-player__pointer"><img width="100%" src="/img/cd_tou.png" alt=""></div>
+        </div>
+        <div class="music-player__controls">
+            <div class="music__info">
+                <h3 class="music__info--title">...</h3>
+                <p class="music__info--singer">...</p>
+            </div>
+            <div class="player-control">
+                <div class="player-control__content">
+                    <div class="player-control__btns">
+                        <div class="player-control__btn player-control__btn--prev"><i class="iconfont icon-prev"></i></div>
+                        <div class="player-control__btn player-control__btn--play"><i class="iconfont icon-play"></i></div>
+                        <div class="player-control__btn player-control__btn--next"><i class="iconfont icon-next"></i></div>
+                        <div class="player-control__btn player-control__btn--mode"><i class="iconfont icon-loop"></i></div>
+                    </div>
+                    <div class="player-control__volume">
+                        <div class="control__volume--icon player-control__btn"><i class="iconfont icon-volume"></i></div>
+                        <div class="control__volume--progress player_progress"></div>
+                    </div>
+                </div>
+                <div class="player-control__content">
+                    <div class="player__song--progress player_progress"></div>
+                    <div class="player__song--timeProgess nowTime">00:00</div>
+                    <div class="player__song--timeProgess totalTime">00:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/music-player/utill.js"></script>
+
+
+<script src="/js/music-player/jquery.min.js"></script>
+
+
+<script src="/js/music-player/player.js"></script>
+
+
+                
+                <!-- Music end -->
+
+                <!-- Sharing -->
+                
+                <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                <!--  css & js -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!-- Sharing -->
+
+                <!-- gitment start -->
+                
+                <!-- gitment end -->
+
+                <!-- 来必力City版安装代码 -->
+                
+                <!-- City版安装代码已完成 -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      
+        <aside id="sidebar">
+          <div id="toc" class="toc-article">
+          <strong class="toc-title">Contents</strong>
+          
+            
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#iOS-app-重签名及发布至-AppStore"><span class="toc-nav-text">iOS app 重签名及发布至 AppStore</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#核心概念"><span class="toc-nav-text">核心概念</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#加密哈希函数"><span class="toc-nav-text">加密哈希函数</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#非对称加密"><span class="toc-nav-text">非对称加密</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#信息摘要"><span class="toc-nav-text">信息摘要</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#数字证书"><span class="toc-nav-text">数字证书</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#数字身份"><span class="toc-nav-text">数字身份</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#证书颁发机构"><span class="toc-nav-text">证书颁发机构</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#数字签名"><span class="toc-nav-text">数字签名</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#规范要求"><span class="toc-nav-text">规范要求</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数字签名原理"><span class="toc-nav-text">数字签名原理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#数字签名过程"><span class="toc-nav-text">数字签名过程</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#验证数字签名过程"><span class="toc-nav-text">验证数字签名过程</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#iOS-App-代码签名"><span class="toc-nav-text">iOS App 代码签名</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#需要对哪些文件签名"><span class="toc-nav-text">需要对哪些文件签名</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Entitlements"><span class="toc-nav-text">Entitlements</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Provisioning-Profile"><span class="toc-nav-text">Provisioning Profile</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#CodeResources"><span class="toc-nav-text">CodeResources</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#App-签名"><span class="toc-nav-text">App 签名</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#App-重签名实战-★"><span class="toc-nav-text">App 重签名实战 ★</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#重签名环境"><span class="toc-nav-text">重签名环境</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#App-重签名参数配置文件"><span class="toc-nav-text">App 重签名参数配置文件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Shell-脚本重签名"><span class="toc-nav-text">Shell 脚本重签名</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-读取重签名参数配置文件"><span class="toc-nav-text">1. 读取重签名参数配置文件</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-准备需要重签名的-app"><span class="toc-nav-text">2. 准备需要重签名的 app</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-删除原有的-CodeSignature-目录"><span class="toc-nav-text">3. 删除原有的 _CodeSignature 目录</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#4-生成-entitlements-plist"><span class="toc-nav-text">4. 生成 entitlements.plist</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#5-替换-Provisioning-Profile"><span class="toc-nav-text">5. 替换 Provisioning Profile</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#6-替换-Bundle-ID"><span class="toc-nav-text">6. 替换 Bundle ID</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#7-对内嵌-Frameworks-签名"><span class="toc-nav-text">7. 对内嵌 Frameworks 签名</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-对-App-Bundle-签名"><span class="toc-nav-text">8. 对 App Bundle 签名</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#9-验证签名"><span class="toc-nav-text">9. 验证签名</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#10-制作已重签名的-IPA"><span class="toc-nav-text">10. 制作已重签名的 IPA</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#11-上传至-iTunes-Connect-可选"><span class="toc-nav-text">11. 上传至 iTunes Connect (可选)</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#常见错误解决"><span class="toc-nav-text">常见错误解决</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#脚本及参数配置文件获取"><span class="toc-nav-text">脚本及参数配置文件获取</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考资料"><span class="toc-nav-text">参考资料</span></a></li></ol></li></ol>
+            
+          
+          </div>
+        </aside>
+      
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">特色标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#App构建与发布" title="App构建与发布">App构建与发布</a>
+                        
+                          <a class="tag" href="/tags/#App重签名" title="App重签名">App重签名</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://github.com/evanxlh" target="_blank">我的Github</a></li>
+                    
+                        <li><a href="https://gitee.com/evanxlh" target="_blank">我的Gitee</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+
+
+<style  type="text/css">
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/evanxlh">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Evan | 愛問 2020 
+                    <br>
+                    Powered by 
+                    <a href="https://github.com/dusign/hexo-theme-snail" target="_blank" rel="noopener">
+                        <i>hexo-theme-snail</i>
+                    </a> | 
+                    <iframe name="star" style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0"
+                        width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=dusign&repo=hexo-theme-snail&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- Search -->
+
+<script src="/js/search.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://evanxlh.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Search -->
+
+    <script type="text/javascript">      
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+            search_path = "search.xml";
+        }
+    var path = "/" + search_path;
+    searchFunc(path, 'local-search-input', 'local-search-result');
+    </script>
+
+
+<!-- busuanzi -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+
+    
+        <!-- background effects line -->
+        
+
+        
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&quot;🌱&quot;,&quot;🍀&quot;, &quot;🍎&quot;,&quot;❤️&quot;,&quot;💖&quot;,&quot;💞&quot;,🍷&quot;,&quot;🌷&quot;,&quot;🦋&quot;]' color='[&quot;rgb(121,93,179)&quot; ,&quot;rgb(76,180,231)&quot; ,&quot;rgb(184,90,154)&quot;]'></script>
+        
+
+        <!-- background effects end -->
+    
+
+    <!--<script size="50" alpha='0.3' zIndex="-999" src="/js/ribbonStatic.js"></script>-->
+    
+        <script src="/js/ribbonDynamic.js"></script>
+    
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
