@@ -25,7 +25,7 @@ class Musics {
     constructor() {
         $.ajaxSettings.async = false;
         var data = $.getJSON('https://api.uomg.com/api/rand.music?', {
-            sort: '热歌榜',
+            sort: '抖音榜',
             format: 'json'
         }).responseJSON;
         this.songs = [{
@@ -40,7 +40,7 @@ class Musics {
     getSongByNum(index) {
         $.ajaxSettings.async = false;
         var data = $.getJSON('https://api.uomg.com/api/rand.music?', {
-            sort: '热歌榜',
+            sort: '抖音榜',
             format: 'json'
         }).responseJSON;
         var songs = [{
