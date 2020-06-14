@@ -8,5 +8,5 @@ Disallow: /js/
 Disallow: /css/
 Disallow: /fonts/
 
-Sitemap: https://www.dusign.net/sitemap.xml
-Sitemap: https://www.dusign.net/baidusitemap.xml
+Sitemap: https://evanxlh.github.io/sitemap.xml
+Sitemap: https://evanxlh.github.io/baidusitemap.xml
