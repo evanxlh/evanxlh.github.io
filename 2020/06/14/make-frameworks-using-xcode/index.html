@@ -325,6 +325,7 @@
 <h3 id="动态库-Dynamic-Library"><a href="#动态库-Dynamic-Library" class="headerlink" title="动态库(Dynamic Library)"></a>动态库(Dynamic Library)</h3><p>动态库又 <em>dynamic shared libraries</em>, <em>shared objects</em>, or <em>dynamically linked libraries</em>。我们以 OS X 为例，当 App 启动时，操作系统内核会将 App 代码和数据载入新进程(<em>也就是操作系统为 App 创建的新进程</em>)的地址空间。与此同时呢，操作系统内核也会把<strong>动态加载器</strong>(<em>Dynamic Loader</em>) 载入进程，由<strong>动态加载器</strong>来完成加载 App 依赖的动态库。不过在启动阶段，<strong>动态加载器</strong>只会根据<strong>静态链接器</strong>中记录的 App 已链接的依赖库的名字，然后使用依赖库的 <code>install name</code> 来查找它们是否在文件系统中存在。如果不存在或不兼容，App 启动过程会中断。动态库被完全载入内存，是在代码里使用它的时候。所以相对静态库来说，使用动态库链接的 App 启动过程会更快。</p>
 <p><img src="https://gitee.com/evanxlh/Resources/raw/master/blog/make-frameworks-xcode/link-dynamic-library.png" alt="Dynamic Link"></p>
 <h4 id="存在形式-1"><a href="#存在形式-1" class="headerlink" title="存在形式"></a>存在形式</h4><p>动态库主要以 <strong>.dylib</strong>，<strong>.so</strong>，<strong>dll</strong> 的形式存在，在苹果生态系统中，还可以是 <strong>.framework</strong> 或 <strong>.xcframework</strong> 。</p>
+<p>iOS App 的动态库存放在 <strong>.app</strong> <em>bundle</em> 下的 <em>Frameworks</em> 文件夹。</p>
 <h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ul>
 <li><p>App 按需装载，可以加速 App 的启动。</p>
 </li>
