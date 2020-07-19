@@ -16,11 +16,11 @@
     <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <title>
         
-          CocoaPods 便捷手册 - evanxlh
+          在 MacOS 上编译 ffmpeg 相关音视频库 - evanxlh
         
     </title>
 
-    <link rel="canonical" href="https://evanxlh.github.io/2020/06/30/cocoapods-manual/">
+    <link rel="canonical" href="https://evanxlh.github.io/2020/07/19/compile-ffmpeg-on-macos/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -108,20 +108,20 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#CocoaPods" title="CocoaPods">CocoaPods</a>
+                              <a class="tag" href="/tags/#ffmpeg" title="ffmpeg">ffmpeg</a>
                             
                         </div>
-                        <h1>CocoaPods 便捷手册</h1>
-                        <h2 class="subheading">CocoaPods 命令帮助手册</h2>
+                        <h1>在 MacOS 上编译 ffmpeg 相关音视频库</h1>
+                        <h2 class="subheading">介绍如何为 ffmpeg 编译 lame, fdk-aac, x264</h2>
                         <span class="meta">
-                            2020-06-30, evanxlh
+                            2020-07-19, evanxlh
                         </span>
 
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                字数: <span class="post-count">1k</span>, 
-                                阅读时间: <span class="post-count">4</span> 
+                                字数: <span class="post-count">916</span>, 
+                                阅读时间: <span class="post-count">3</span> 
                                 分钟
                             </span>
                             <div class="blank_box"></div>
@@ -266,126 +266,64 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="CocoaPods-便捷手册"><a href="#CocoaPods-便捷手册" class="headerlink" title="CocoaPods 便捷手册"></a>CocoaPods 便捷手册</h1><h2 id="安装-CocoaPods"><a href="#安装-CocoaPods" class="headerlink" title="安装 CocoaPods"></a>安装 CocoaPods</h2><p>CocoaPods 的安装都是通过 <code>gem</code> 来管理，所以安装/更新 CocoaPods 之前，我们需要先更新下 <code>gem</code>:</p>
-<p><code>sudo gem update --system</code> 。</p>
+                <h1 id="MacOS-编译-ffmpeg-相关音视频库"><a href="#MacOS-编译-ffmpeg-相关音视频库" class="headerlink" title="MacOS 编译 ffmpeg 相关音视频库"></a>MacOS 编译 ffmpeg 相关音视频库</h1><p>做音视频开发，除了平台提供的SDK外，我们经常会用到一些优秀的第三方开源库，这里我们将介绍下lame, fad-aac, x264的编译及使用。</p>
+<h2 id="音视频库介绍"><a href="#音视频库介绍" class="headerlink" title="音视频库介绍"></a>音视频库介绍</h2><h3 id="lame"><a href="#lame" class="headerlink" title="lame"></a><a href="http://lame.sourceforge.net/download.php" target="_blank" rel="noopener">lame</a></h3><p>目前，LAME被认为是中高比特率和VBR的最佳MP3编码器，主要得益于其开发人员的专注工作和开源许可模式，使该项目能够利用来自世界各地的工程资源。 质量和速度的提升仍在继续，可能使LAME成为唯一仍在积极开发的MP3编码器。</p>
+<h3 id="fdk-aac"><a href="#fdk-aac" class="headerlink" title="fdk-aac"></a><a href="https://sourceforge.net/projects/opencore-amr/files/fdk-aac/" target="_blank" rel="noopener">fdk-aac</a></h3><p>Fraunhofer FDK AAC是由Fraunhofer IIS开发的高质量开源AAC编码器库。 它是针对Android正式发布的，但已被移植到其他平台。 Winamp中包含的许可Fraunhofer AAC编解码器（通常称为FhG AAC）与FDK AAC编解码器不同。FDK AAC是一个目前效率很高的aac编解码库。</p>
+<h3 id="x264"><a href="#x264" class="headerlink" title="x264"></a><a href="https://www.videolan.org/developers/x264.html" target="_blank" rel="noopener">x264</a></h3><p>x264是一个免费的开源软件库和VideoLAN开发的命令行实用程序，用于将视频流编码为H.264 / MPEG-4 AVC格式。 它是根据GNU通用公共许可证条款发布的。</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>lame, fad-aac, x264的编译其实很简单，github上有现成的build shell, 但有些并非在机器上就能跑起来。所以针对一些错误，我对一些build shell做了少许改动，支持 x86_64, arm64e, arm64, armv7s, armv7架构的编译。</p>
+<p>接下来我们就要开始编译了，请先从<a href="https://github.com/masterav/CompileAVLibs" target="_blank" rel="noopener">这里下载</a>编译需要用的代码、脚本和一些说明，下载后，直接进行编译就行，省时省力。</p>
+<h3 id="Build-lame"><a href="#Build-lame" class="headerlink" title="Build lame"></a>Build lame</h3><ol>
+<li>进入目录 <strong>lame-3.100</strong> , <code>cd lame-3.100</code>.</li>
+<li>更改脚本文件的权限, <code>sudo chmod 777 build-lame.sh</code>.</li>
+<li>运行脚本, <code>./build-lame.sh</code> </li>
+</ol>
+<p>你也可以参考脚本使用说明 <a href="https://github.com/masterav/CompileAVLibs/blob/master/lame-3.100/README.md" target="_blank" rel="noopener">lame shell 脚本使用说明</a>.</p>
+<h3 id="Build-fdk-aac"><a href="#Build-fdk-aac" class="headerlink" title="Build fdk-aac"></a>Build fdk-aac</h3><ol>
+<li>进入目录 <strong>fdk-aac-2.0.0</strong> , <code>cd fdk-aac-2.0.0</code>.</li>
+<li>更改脚本文件的权限, <code>sudo chmod 777 build-fdk-aac.sh</code>.</li>
+<li>运行脚本, <code>./build-fdk-aac.sh</code> </li>
+</ol>
+<p>你也可以参考脚本使用说明 <a href="https://github.com/masterav/CompileAVLibs/blob/master/fdk-aac-2.0.0/README.md" target="_blank" rel="noopener">fdk-aac shell 脚本使用说明</a>.</p>
+<h3 id="Build-x264"><a href="#Build-x264" class="headerlink" title="Build x264"></a>Build x264</h3><ol>
+<li>进入目录 <strong>x264-20190809-2245</strong> , <code>cd x264-20190809-2245</code>.</li>
+<li>更改脚本文件的权限, <code>sudo chmod 777 build-x264.sh</code>.</li>
+<li>运行脚本, <code>./build-x264.sh</code> </li>
+</ol>
+<p>你也可以参考脚本使用说明 <a href="https://github.com/masterav/CompileAVLibs/blob/master/x264-20190809-2245/README.md" target="_blank" rel="noopener">x264 shell 脚本使用说明</a>.</p>
+<h3 id="ffmpeg"><a href="#ffmpeg" class="headerlink" title="ffmpeg"></a><a href="https://ffmpeg.org" target="_blank" rel="noopener">ffmpeg</a></h3><p>一种完整的跨平台解决方案，用于录制，转换和流式传输音频和视频。</p>
+<h4 id="Build-ffmpeg"><a href="#Build-ffmpeg" class="headerlink" title="Build ffmpeg"></a>Build ffmpeg</h4><ol>
+<li>进入目录 <code>ffmpeg-4.2</code> , <code>cd x264-20190809-2245</code>.</li>
+<li>更改脚本文件的权限, <code>sudo chmod 777 build-ffmpeg.sh</code>.</li>
+<li>如果想让ffmpeg使用<code>x264, lame, fdk-aac</code>的话，还请手动将之前编译环节中产生的<code>fat-x264, fat-lame, fat-fdk-aac</code>三个文件夹复制到<code>ffmpeg-4.2/external-libs</code>下面。反之，你需要把<code>X264, LAME, FDK_AAC</code>从<code>build-ffmpeg.sh</code>中注释掉.</li>
+<li>运行脚本, <code>./build-ffmpeg.sh</code>。</li>
+<li>最后，你可以在<code>fat-ffmpeg</code>目录下找到相关静态库。</li>
+</ol>
+<p>你也可以参考脚本使用说明 <a href="https://github.com/masterav/CompileAVLibs/blob/master/ffmpeg-4.2/README.md" target="_blank" rel="noopener">ffmpeg shell 脚本使用说明</a>.</p>
+<h4 id="编译可能碰到的问题"><a href="#编译可能碰到的问题" class="headerlink" title="编译可能碰到的问题"></a>编译可能碰到的问题</h4><ul>
+<li><p><code>No working C compiler found.</code><br>可能是xcode路径问题，终端输入命令：<br>sudo xcode-select —switch /Applications/Xcode.app/Contents/Developer/</p>
+</li>
+<li><p><code>Found no assembler,Minimum version is nasm-x.x.x</code> 或<br><code>Found no assembler,Minimum version is yasm-x.x.x</code><br> 原因是没有安装yasm/nasm或yasm/nasm版本太低，需要重新安装nasm/yasm。<br><code>brew install nasm</code> 或 <code>brew install yasm</code>.</p>
+</li>
+</ul>
 <ul>
-<li><p>安装 CocoaPods</p>
-<p>sudo gem install  cocoapods -n /usr/local/bin</p>
-</li>
-<li><p>更新CocoaPods</p>
-<p>sudo gem update cocoapods -n /usr/local/bin</p>
-</li>
-<li><p>回到上一版本</p>
-<p>sudo gem install cocoapods -n /usr/local/bin —pre</p>
-</li>
-<li><p>卸载 CocoaPods</p>
-<p>sudo gem uninstall cocoapods -n /usr/local/bin</p>
+<li>编译i386遇到<code>No working C compiler found</code><br>有两种解决办法，任选一种就好：<ol>
+<li>可以直接将i386略过编译，将<code>i386</code>从编译脚本<strong>ARCHS=”arm64 x86_64 i386 armv7 armv7s”</strong> 中删除，然后重新编译</li>
+<li>在终端输入<code>./build-x264.sh arm64e arm64 x86_64 armv7s</code>进行编译。</li>
+</ol>
 </li>
 </ul>
-<p><strong>Pod仓库显示</strong></p>
-<p><code>pod repo</code>  或者 <code>pod repo list</code></p>
-<h2 id="使用-Podfile"><a href="#使用-Podfile" class="headerlink" title="使用 Podfile"></a>使用 Podfile</h2><h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><ul>
-<li><p>在当前目录下创建Podfile</p>
-<p>pod init</p>
-</li>
-<li><p>安装依赖库</p>
-<p>pod install</p>
-</li>
-<li><p>更新依赖库</p>
-<p>pod update</p>
-</li>
-<li><p>更新特定依赖库</p>
-<p>pod update LibraryName —verbose —no-repo-update</p>
-</li>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.jianshu.com/p/b7881a4467db" target="_blank" rel="noopener">https://www.jianshu.com/p/b7881a4467db</a></li>
 </ul>
-<h3 id="Podfile样例"><a href="#Podfile样例" class="headerlink" title="Podfile样例"></a>Podfile样例</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source 'https://cdn.cocoapods.org/'</span><br><span class="line">platform :ios, '9.0'</span><br><span class="line">use_frameworks!</span><br><span class="line"></span><br><span class="line">workspace 'App.xcworkspace'</span><br><span class="line"></span><br><span class="line">target ’SDK' do</span><br><span class="line">  project 'SDK/SDK.xcodeproj'</span><br><span class="line">  pod 'YYKit'</span><br><span class="line">  pod 'FBSDKCoreKit', '~&gt; 4.31.0'</span><br><span class="line">  pod 'FBSDKLoginKit', '~&gt; 4.31.0'</span><br><span class="line">  pod 'FBSDKShareKit', '~&gt; 4.31.0</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">target ‘App' do</span><br><span class="line">  project ‘App.xcodeproj’</span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use repo on your <span class="built_in">local</span> machine:</span></span><br><span class="line">   	pod 'Alamofire', :path =&gt; '~/Documents/Alamofire'</span><br><span class="line"></span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use the master branch of the repo:</span></span><br><span class="line">   	pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git'</span><br><span class="line"></span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use a different branch of the repo:</span></span><br><span class="line">   	pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git', :branch =&gt; ‘dev'</span><br><span class="line"></span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use a tag of the repo:</span></span><br><span class="line">		pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git', :tag =&gt; ‘3.1.1’</span><br><span class="line"></span><br><span class="line">   	# Or specify a commit:</span><br><span class="line">	  pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git', :commit =&gt; ‘0f506b1c45'</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">post_install do |installer|</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">	   target.build_configurations.each do |config|</span><br><span class="line">	      config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'</span><br><span class="line">		    	config.build_settings['ARCHS'] = 'arm64'</span><br><span class="line">      	end</span><br><span class="line">  	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<h2 id="发布-Pod-库"><a href="#发布-Pod-库" class="headerlink" title="发布 Pod 库"></a>发布 Pod 库</h2><h3 id="发布公有-Pod-库"><a href="#发布公有-Pod-库" class="headerlink" title="发布公有 Pod 库"></a>发布公有 Pod 库</h3><h4 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h4><ol>
-<li><p>注册CocoaPods</p>
-<p>pod trunk register yourname@xxx.com ‘Evan Xie’ —description=’NEVER GIVE UP!!!’</p>
-</li>
-<li><p>将你的 pod spec 上传到 CocoaPods 远程仓库</p>
-<p>pod trunk push YourLibraryName.podspec —allow-warnings</p>
-</li>
-<li><p>创建 podspec 文件</p>
-<p>pod spec create YourLibraryName</p>
-</li>
-<li><p>验证你的Pod库</p>
-<p>pod lib lint —allow-warnings</p>
-</li>
-<li><p>创建 tag 并 push 到 git 远程仓库</p>
-<p>git tag 0.0.1</p>
-<p>git push —tags</p>
-</li>
-</ol>
-<h4 id="公有-Pod-Spec-管理"><a href="#公有-Pod-Spec-管理" class="headerlink" title="公有 Pod Spec 管理"></a>公有 Pod Spec 管理</h4><ul>
-<li><p>查看个人信息</p>
-<p>pod trunk me</p>
-</li>
-<li><p>废弃 podspec </p>
-<p>pod trunk deprecate YourLibraryName</p>
-</li>
-<li><p>删除某个版本</p>
-<p>pod trunk mepod trunk delete YourLibraryName PodspecVersion</p>
-</li>
-</ul>
-<h3 id="发布私有-Pod-库"><a href="#发布私有-Pod-库" class="headerlink" title="发布私有 Pod 库"></a>发布私有 Pod 库</h3><h4 id="操作步骤-1"><a href="#操作步骤-1" class="headerlink" title="操作步骤"></a>操作步骤</h4><ol>
-<li><p>创建存放 pod specs 的 Git 仓库, 并添加到 Pod 仓库中</p>
-<p>pod repo add PrivatePodSpecs git@github.com:xxx/PrivatePodSpecs.git</p>
-</li>
-<li><p>在本地查看私有仓库</p>
-<p>第一步添加完成后，查看文件夹 <code>~/.cocoapods/repos</code>， 可以发现增加了一个 <code>PrivatePodSpecs</code> 的仓库.</p>
-</li>
-<li><p>创建代码仓库</p>
-<p>代码仓库创建完成克隆到本地，然后就可以创建私有 <em>podspec</em> 了。</p>
-</li>
-<li><p>创建 podspec 文件</p>
-<p>pod spec create YourLibraryName</p>
-</li>
-<li><p>验证你的Pod库</p>
-<p>pod lib lint —allow-warnings</p>
-</li>
-<li><p>创建 tag 并 push 到 git 远程仓库</p>
-<p>git tag 0.0.1</p>
-<p>git push —tags</p>
-</li>
-<li><p>将 podspec 推送到创建好的私有存放 PodSpecs 的 Git 仓库</p>
-<p>pod repo push PrivatePodSpecs YourLibraryName.podspec —verbose —allow-warnings</p>
-</li>
-<li><p>Push成功后，查看 ~/.cocoapods/repos， 就可以发现多了一个 <code>YourLibraryName.podspec</code>。如果未找到，可以先更新下 PrivatePodSpecs 仓库: <code>pod repo update PrivatePodSpecs</code> 。</p>
-</li>
-</ol>
-<h4 id="使用私有Pod库"><a href="#使用私有Pod库" class="headerlink" title="使用私有Pod库"></a>使用私有Pod库</h4><p>在 Podfile 中指明私有 pod spec 仓库地址:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source 'git@github.com:xxx/PrivatePodSpecs.git’</span><br></pre></td></tr></table></figure>
-<p><strong>Podfile</strong></p>
-<p>最后你的Podfile可能长这个样子：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source 'https://cdn.cocoapods.org/'</span><br><span class="line">source 'git@github.com:xxx/PrivatePodSpecs.git'</span><br><span class="line"></span><br><span class="line">platform :ios, '9.0'</span><br><span class="line"></span><br><span class="line">workspace 'MyApp.xcworkspace'</span><br><span class="line"></span><br><span class="line">target 'MyApp' do</span><br><span class="line">  use_frameworks!</span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> 你的私有库</span></span><br><span class="line">  pod 'YourLibraryName'</span><br><span class="line">  </span><br><span class="line"><span class="meta">	#</span><span class="bash"> 公有库</span></span><br><span class="line">	pod 'RxSwift' </span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<h4 id="指明私有-pod-spec-仓库地址"><a href="#指明私有-pod-spec-仓库地址" class="headerlink" title="指明私有 pod spec 仓库地址"></a>指明私有 pod spec 仓库地址</h4><p>如果私有 pod 仓库不能访问，可以尝试下域名与IP的映射。</p>
-<p>打开 /etc目录，编辑 hosts文件，添加映射即可。例如：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Host Database</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> localhost is used to configure the loopback interface</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> when the system is booting.  Do not change this entry.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#</span></span></span><br><span class="line">127.0.0.1	localhost</span><br><span class="line">255.255.255.255	broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 自己添加的域名与 IP 的映射</span></span><br><span class="line">10.xxx.xxx.111 gitlab.compnayname.com</span><br></pre></td></tr></table></figure>
-<h3 id="Pod-Spec-Beta-版本说明"><a href="#Pod-Spec-Beta-版本说明" class="headerlink" title="Pod Spec Beta 版本说明"></a>Pod Spec Beta 版本说明</h3><p><strong>比如我们要发的正式版本是 1.0.0, 不过目前还在开发过程中，所以我们可以使用用 beta 版本。</strong></p>
-<p>假设我们发了两个版本: 1.0.0-beta1, 1.0.0-beta2，然后我们在 Podfile 中可以这样使用：</p>
-<p>pod ‘MyLibrary’, ‘~&gt; 1.0.0-beta’</p>
-<p>pod install 后，就会自动更新到 1.0.0-beta2.</p>
-<p>假设我们正式发布了 1.0.0版本，如果 Podfile 中还是用 1.0.0-beta 版本，那么 pod install 后， 会自动升级到正式版本 1.0.0。</p>
-<p>更多版本号说明，请看这里: <a href="https://semver.org" target="_blank" rel="noopener">Semantic Versioning</a> 。</p>
-<p><strong>常见问题</strong></p>
-<ol>
-<li>pod lib lint 报xcrun unable to find simctl问题</li>
-</ol>
-<p>​       打开Xcode &gt; Preferences &gt; Locations 更改一下 Command Line Tools选项就可以了。</p>
 
                 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2020/07/19/compile-ffmpeg-on-macos/" data-toggle="tooltip" data-placement="top" title="在 MacOS 上编译 ffmpeg 相关音视频库">&larr; 上一篇</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2020/06/29/git-manual/" data-toggle="tooltip" data-placement="top" title="Git 命令便捷手册">下一篇 &rarr;</a>
+                        <a href="/2020/06/30/cocoapods-manual/" data-toggle="tooltip" data-placement="top" title="CocoaPods 便捷手册">下一篇 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -523,7 +461,7 @@ const myTheme = {
   }
 }
 const gitment = new Gitment({
-    id: 'Tue Jun 30 2020 07:57:58 GMT+0800', // optional
+    id: 'Sun Jul 19 2020 16:52:35 GMT+0800', // optional
     owner: "evanxlh",
     repo: "MyBlogComments",
     oauth: {
@@ -563,7 +501,7 @@ const gitment = new Gitment({
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#CocoaPods-便捷手册"><span class="toc-nav-text">CocoaPods 便捷手册</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装-CocoaPods"><span class="toc-nav-text">安装 CocoaPods</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用-Podfile"><span class="toc-nav-text">使用 Podfile</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#常用操作"><span class="toc-nav-text">常用操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Podfile样例"><span class="toc-nav-text">Podfile样例</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#发布-Pod-库"><span class="toc-nav-text">发布 Pod 库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#发布公有-Pod-库"><span class="toc-nav-text">发布公有 Pod 库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#操作步骤"><span class="toc-nav-text">操作步骤</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#公有-Pod-Spec-管理"><span class="toc-nav-text">公有 Pod Spec 管理</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#发布私有-Pod-库"><span class="toc-nav-text">发布私有 Pod 库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#操作步骤-1"><span class="toc-nav-text">操作步骤</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#使用私有Pod库"><span class="toc-nav-text">使用私有Pod库</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#指明私有-pod-spec-仓库地址"><span class="toc-nav-text">指明私有 pod spec 仓库地址</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Pod-Spec-Beta-版本说明"><span class="toc-nav-text">Pod Spec Beta 版本说明</span></a></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#MacOS-编译-ffmpeg-相关音视频库"><span class="toc-nav-text">MacOS 编译 ffmpeg 相关音视频库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#音视频库介绍"><span class="toc-nav-text">音视频库介绍</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#lame"><span class="toc-nav-text">lame</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fdk-aac"><span class="toc-nav-text">fdk-aac</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#x264"><span class="toc-nav-text">x264</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#编译"><span class="toc-nav-text">编译</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-lame"><span class="toc-nav-text">Build lame</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-fdk-aac"><span class="toc-nav-text">Build fdk-aac</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-x264"><span class="toc-nav-text">Build x264</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#ffmpeg"><span class="toc-nav-text">ffmpeg</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Build-ffmpeg"><span class="toc-nav-text">Build ffmpeg</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#编译可能碰到的问题"><span class="toc-nav-text">编译可能碰到的问题</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-text">参考</span></a></li></ol></li></ol>
             
           
           </div>
@@ -585,7 +523,7 @@ const gitment = new Gitment({
                     <h5><a href="/tags/">特色标签</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#CocoaPods" title="CocoaPods">CocoaPods</a>
+                          <a class="tag" href="/tags/#ffmpeg" title="ffmpeg">ffmpeg</a>
                         
                     </div>
                 </section>
