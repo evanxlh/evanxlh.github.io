@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="baidu-site-verification" content="xl7Ck2KCfm" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="我的个人博客">
+    <meta name="keyword"  content="Evan, 爱问, 埃文, 博客, iOS Developer, 软件工程师, 程序员, Evan的博客, evanxlh, Evan 程序人生">
+    <link rel="shortcut icon" href="/img/green-life.jpg">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
+    <title>
+        
+          cocoapods-manual - evanxlh
+        
+    </title>
+
+    <link rel="canonical" href="https://evanxlh.github.io/2020/06/30/cocoapods-manual/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+        
+<link rel="stylesheet" href="/css/dusign-light.css">
+
+        
+<link rel="stylesheet" href="/css/dusign-common-light.css">
+
+        
+<link rel="stylesheet" href="/css/font-awesome.css">
+
+        
+<link rel="stylesheet" href="/css/toc.css">
+
+        <!-- background effects end -->
+    
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/fonts.googleapis.css">
+
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- photography -->
+    
+<link rel="stylesheet" href="/css/photography.css">
+
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- background effects start -->
+    
+    <!-- background effects end -->
+
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            
+                background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../../../../img/default-post.jpg')
+                /*post*/
+            
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#CocoaPods" title="CocoaPods">CocoaPods</a>
+                            
+                        </div>
+                        <h1>cocoapods-manual</h1>
+                        <h2 class="subheading">CocoaPods 命令帮助手册</h2>
+                        <span class="meta">
+                            2020-06-30, evanxlh
+                        </span>
+
+                        
+                            <div class="blank_box"></div>
+                            <span class="meta">
+                                字数: <span class="post-count">1k</span>, 
+                                阅读时间: <span class="post-count">4</span> 
+                                分钟
+                            </span>
+                            <div class="blank_box"></div>
+                            <!-- 不蒜子统计 start -->
+                            <span class="meta">
+                                浏览次数: <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+                            </span>
+                            <!-- 不蒜子统计 end -->
+                        
+
+                    </div>
+                
+
+                </div>
+            </div>
+        </div>      
+    </div>
+
+    
+    <div class="waveWrapper">
+        <div class="wave wave_before" style="background-image: url('/img/wave-light.png')"></div>
+        <div class="wave wave_after" style="background-image: url('/img/wave-light.png')"></div>
+    </div>
+    
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="/">evanxlh</a> -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">关于</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/categories/">分类</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/photography/">摄影</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="CocoaPods-手册"><a href="#CocoaPods-手册" class="headerlink" title="CocoaPods 手册"></a>CocoaPods 手册</h1><h2 id="安装-CocoaPods"><a href="#安装-CocoaPods" class="headerlink" title="安装 CocoaPods"></a>安装 CocoaPods</h2><p>CocoaPods 的安装都是通过 <code>gem</code> 来管理，所以安装/更新 CocoaPods 之前，我们需要先更新下 <code>gem</code>:</p>
+<p><code>sudo gem update --system</code> 。</p>
+<ul>
+<li><p>安装 CocoaPods</p>
+<p>sudo gem install  cocoapods -n /usr/local/bin</p>
+</li>
+<li><p>更新CocoaPods</p>
+<p>sudo gem update cocoapods -n /usr/local/bin</p>
+</li>
+<li><p>回到上一版本</p>
+<p>sudo gem install cocoapods -n /usr/local/bin —pre</p>
+</li>
+<li><p>卸载 CocoaPods</p>
+<p>sudo gem uninstall cocoapods -n /usr/local/bin</p>
+</li>
+</ul>
+<p><strong>Pod仓库显示</strong></p>
+<p><code>pod repo</code>  或者 <code>pod repo list</code></p>
+<h2 id="使用-Podfile"><a href="#使用-Podfile" class="headerlink" title="使用 Podfile"></a>使用 Podfile</h2><h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><ul>
+<li><p>在当前目录下创建Podfile</p>
+<p>pod init</p>
+</li>
+<li><p>安装依赖库</p>
+<p>pod install</p>
+</li>
+<li><p>更新依赖库</p>
+<p>pod update</p>
+</li>
+<li><p>更新特定依赖库</p>
+<p>pod update LibraryName —verbose —no-repo-update</p>
+</li>
+</ul>
+<h3 id="Podfile样例"><a href="#Podfile样例" class="headerlink" title="Podfile样例"></a>Podfile样例</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source 'https://cdn.cocoapods.org/'</span><br><span class="line">platform :ios, '9.0'</span><br><span class="line">use_frameworks!</span><br><span class="line"></span><br><span class="line">workspace 'App.xcworkspace'</span><br><span class="line"></span><br><span class="line">target ’SDK' do</span><br><span class="line">  project 'SDK/SDK.xcodeproj'</span><br><span class="line">  pod 'YYKit'</span><br><span class="line">  pod 'FBSDKCoreKit', '~&gt; 4.31.0'</span><br><span class="line">  pod 'FBSDKLoginKit', '~&gt; 4.31.0'</span><br><span class="line">  pod 'FBSDKShareKit', '~&gt; 4.31.0</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">target ‘App' do</span><br><span class="line">  project ‘App.xcodeproj’</span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use repo on your <span class="built_in">local</span> machine:</span></span><br><span class="line">   	pod 'Alamofire', :path =&gt; '~/Documents/Alamofire'</span><br><span class="line"></span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use the master branch of the repo:</span></span><br><span class="line">   	pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git'</span><br><span class="line"></span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use a different branch of the repo:</span></span><br><span class="line">   	pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git', :branch =&gt; ‘dev'</span><br><span class="line"></span><br><span class="line"><span class="meta">  	#</span><span class="bash"> To use a tag of the repo:</span></span><br><span class="line">		pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git', :tag =&gt; ‘3.1.1’</span><br><span class="line"></span><br><span class="line">   	# Or specify a commit:</span><br><span class="line">	  pod 'Alamofire', :git =&gt; 'https://github.com/Alamofire/Alamofire.git', :commit =&gt; ‘0f506b1c45'</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">post_install do |installer|</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">	   target.build_configurations.each do |config|</span><br><span class="line">	      config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'</span><br><span class="line">		    	config.build_settings['ARCHS'] = 'arm64'</span><br><span class="line">      	end</span><br><span class="line">  	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h2 id="发布-Pod-库"><a href="#发布-Pod-库" class="headerlink" title="发布 Pod 库"></a>发布 Pod 库</h2><h3 id="发布公有-Pod-库"><a href="#发布公有-Pod-库" class="headerlink" title="发布公有 Pod 库"></a>发布公有 Pod 库</h3><h4 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h4><ol>
+<li><p>注册CocoaPods</p>
+<p>pod trunk register yourname@xxx.com ‘Evan Xie’ —description=’NEVER GIVE UP!!!’</p>
+</li>
+<li><p>将你的 pod spec 上传到 CocoaPods 远程仓库</p>
+<p>pod trunk push YourLibraryName.podspec —allow-warnings</p>
+</li>
+<li><p>创建 podspec 文件</p>
+<p>pod spec create YourLibraryName</p>
+</li>
+<li><p>验证你的Pod库</p>
+<p>pod lib lint —allow-warnings</p>
+</li>
+<li><p>创建 tag 并 push 到 git 远程仓库</p>
+<p>git tag 0.0.1</p>
+<p>git push —tags</p>
+</li>
+</ol>
+<h4 id="公有-Pod-Spec-管理"><a href="#公有-Pod-Spec-管理" class="headerlink" title="公有 Pod Spec 管理"></a>公有 Pod Spec 管理</h4><ul>
+<li><p>查看个人信息</p>
+<p>pod trunk me</p>
+</li>
+<li><p>废弃 podspec </p>
+<p>pod trunk deprecate YourLibraryName</p>
+</li>
+<li><p>删除某个版本</p>
+<p>pod trunk mepod trunk delete YourLibraryName PodspecVersion</p>
+</li>
+</ul>
+<h3 id="发布私有-Pod-库"><a href="#发布私有-Pod-库" class="headerlink" title="发布私有 Pod 库"></a>发布私有 Pod 库</h3><h4 id="操作步骤-1"><a href="#操作步骤-1" class="headerlink" title="操作步骤"></a>操作步骤</h4><ol>
+<li><p>创建存放 pod specs 的 Git 仓库, 并添加到 Pod 仓库中</p>
+<p>pod repo add PrivatePodSpecs git@github.com:xxx/PrivatePodSpecs.git</p>
+</li>
+<li><p>在本地查看私有仓库</p>
+<p>第一步添加完成后，查看文件夹 <code>~/.cocoapods/repos</code>， 可以发现增加了一个 <code>PrivatePodSpecs</code> 的仓库.</p>
+</li>
+<li><p>创建代码仓库</p>
+<p>代码仓库创建完成克隆到本地，然后就可以创建私有 <em>podspec</em> 了。</p>
+</li>
+<li><p>创建 podspec 文件</p>
+<p>pod spec create YourLibraryName</p>
+</li>
+<li><p>验证你的Pod库</p>
+<p>pod lib lint —allow-warnings</p>
+</li>
+<li><p>创建 tag 并 push 到 git 远程仓库</p>
+<p>git tag 0.0.1</p>
+<p>git push —tags</p>
+</li>
+<li><p>将 podspec 推送到创建好的私有存放 PodSpecs 的 Git 仓库</p>
+<p>pod repo push PrivatePodSpecs YourLibraryName.podspec —verbose —allow-warnings</p>
+</li>
+<li><p>Push成功后，查看 ~/.cocoapods/repos， 就可以发现多了一个 <code>YourLibraryName.podspec</code>。如果未找到，可以先更新下 PrivatePodSpecs 仓库: <code>pod repo update PrivatePodSpecs</code> 。</p>
+</li>
+</ol>
+<h4 id="使用私有Pod库"><a href="#使用私有Pod库" class="headerlink" title="使用私有Pod库"></a>使用私有Pod库</h4><p>在 Podfile 中指明私有 pod spec 仓库地址:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source 'git@github.com:xxx/PrivatePodSpecs.git’</span><br></pre></td></tr></table></figure>
+<p><strong>Podfile</strong></p>
+<p>最后你的Podfile可能长这个样子：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source 'https://cdn.cocoapods.org/'</span><br><span class="line">source 'git@github.com:xxx/PrivatePodSpecs.git'</span><br><span class="line"></span><br><span class="line">platform :ios, '9.0'</span><br><span class="line"></span><br><span class="line">workspace 'MyApp.xcworkspace'</span><br><span class="line"></span><br><span class="line">target 'MyApp' do</span><br><span class="line">  use_frameworks!</span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> 你的私有库</span></span><br><span class="line">  pod 'YourLibraryName'</span><br><span class="line">  </span><br><span class="line"><span class="meta">	#</span><span class="bash"> 公有库</span></span><br><span class="line">	pod 'RxSwift' </span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h4 id="指明私有-pod-spec-仓库地址"><a href="#指明私有-pod-spec-仓库地址" class="headerlink" title="指明私有 pod spec 仓库地址"></a>指明私有 pod spec 仓库地址</h4><p>如果私有 pod 仓库不能访问，可以尝试下域名与IP的映射。</p>
+<p>打开 /etc目录，编辑 hosts文件，添加映射即可。例如：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Host Database</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> localhost is used to configure the loopback interface</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> when the system is booting.  Do not change this entry.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#</span></span></span><br><span class="line">127.0.0.1	localhost</span><br><span class="line">255.255.255.255	broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 自己添加的域名与 IP 的映射</span></span><br><span class="line">10.xxx.xxx.111 gitlab.compnayname.com</span><br></pre></td></tr></table></figure>
+<h3 id="Pod-Spec-Beta-版本说明"><a href="#Pod-Spec-Beta-版本说明" class="headerlink" title="Pod Spec Beta 版本说明"></a>Pod Spec Beta 版本说明</h3><p><strong>比如我们要发的正式版本是 1.0.0, 不过目前还在开发过程中，所以我们可以使用用 beta 版本。</strong></p>
+<p>假设我们发了两个版本: 1.0.0-beta1, 1.0.0-beta2，然后我们在 Podfile 中可以这样使用：</p>
+<p>pod ‘MyLibrary’, ‘~&gt; 1.0.0-beta’</p>
+<p>pod install 后，就会自动更新到 1.0.0-beta2.</p>
+<p>假设我们正式发布了 1.0.0版本，如果 Podfile 中还是用 1.0.0-beta 版本，那么 pod install 后， 会自动升级到正式版本 1.0.0。</p>
+<p>更多版本号说明，请看这里: <a href="https://semver.org" target="_blank" rel="noopener">Semantic Versioning</a> 。</p>
+<p><strong>常见问题</strong></p>
+<ol>
+<li>pod lib lint 报xcrun unable to find simctl问题</li>
+</ol>
+<p>​       打开Xcode &gt; Preferences &gt; Locations 更改一下 Command Line Tools选项就可以了。</p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/06/29/git-manual/" data-toggle="tooltip" data-placement="top" title="Git 常用操作快捷命令">下一篇 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- tip start -->
+                
+
+                
+                <div class="comment_notes">
+                    <p>
+                        如果您喜欢这篇文章，或觉得对您有用的话，欢迎发表评论，您也可以随意的分享或转载这篇文章。如果文章中的图片有侵犯您的版本，请联系作者将期删除。谢谢您的支持！
+                    </p>
+                </div>
+                
+                <!-- tip end -->
+
+                <!-- Music start-->
+                
+                
+<link rel="stylesheet" href="/css/music-player/fonts/iconfont.css">
+
+
+<link rel="stylesheet" href="/css/music-player/css/reset.css">
+
+
+<link rel="stylesheet" href="/css/music-player/css/player.css">
+
+
+<div class="music-player">
+    <audio class="music-player__audio" ></audio>
+    <div class="music-player__main">
+        <div class="music-player__blur"></div>
+        <div class="music-player__disc">
+            <div class="music-player__image">
+                <img width="100%" src="" alt="">
+            </div>
+            <div class="music-player__pointer"><img width="100%" src="/img/cd_tou.png" alt=""></div>
+        </div>
+        <div class="music-player__controls">
+            <div class="music__info">
+                <h3 class="music__info--title">...</h3>
+                <p class="music__info--singer">...</p>
+            </div>
+            <div class="player-control">
+                <div class="player-control__content">
+                    <div class="player-control__btns">
+                        <div class="player-control__btn player-control__btn--prev"><i class="iconfont icon-prev"></i></div>
+                        <div class="player-control__btn player-control__btn--play"><i class="iconfont icon-play"></i></div>
+                        <div class="player-control__btn player-control__btn--next"><i class="iconfont icon-next"></i></div>
+                        <div class="player-control__btn player-control__btn--mode"><i class="iconfont icon-loop"></i></div>
+                    </div>
+                    <div class="player-control__volume">
+                        <div class="control__volume--icon player-control__btn"><i class="iconfont icon-volume"></i></div>
+                        <div class="control__volume--progress player_progress"></div>
+                    </div>
+                </div>
+                <div class="player-control__content">
+                    <div class="player__song--progress player_progress"></div>
+                    <div class="player__song--timeProgess nowTime">00:00</div>
+                    <div class="player__song--timeProgess totalTime">00:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/music-player/utill.js"></script>
+
+
+<script src="/js/music-player/jquery.min.js"></script>
+
+
+<script src="/js/music-player/player.js"></script>
+
+
+                
+                <!-- Music end -->
+
+                <!-- Sharing -->
+                
+                <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                <!--  css & js -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!-- Sharing -->
+
+                <!-- gitment start -->
+                
+                <hr>
+                <div id="blog_comments"></div>
+
+<!--
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<!--
+<link rel="stylesheet" href="/css/gitment.css">
+<script type="text/javascript" src="/js/gitment.js"></script>
+-->
+
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css"/>
+
+<!--
+<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+<script src="https://billts.site/js/gitment.js"></script>
+-->
+
+<script>
+const myTheme = {
+  render(state, instance) {
+    const container = document.createElement('div')
+    container.lang = "en-US"
+    container.className = 'gitment-container gitment-root-container'
+    
+     // your custom component
+    container.appendChild(instance.renderSomething(state, instance))
+    
+    container.appendChild(instance.renderHeader(state, instance))
+    container.appendChild(instance.renderComments(state, instance))
+    container.appendChild(instance.renderEditor(state, instance))
+    //container.appendChild(instance.renderFooter(state, instance))
+    return container
+  },
+  renderSomething(state, instance) {
+    const container = document.createElement('div')
+    container.lang = "en-US"
+    container.className = 'hello_visitor'
+    if (state.user.login) {
+      container.innerText = `Hello ${state.user.login}, Welcome to comment system`
+    }
+    return container
+  }
+}
+const gitment = new Gitment({
+    id: 'Tue Jun 30 2020 07:57:58 GMT+0800', // optional
+    owner: "evanxlh",
+    repo: "MyBlogComments",
+    oauth: {
+      client_id: "a60bad854ffd3940e9ba",
+      client_secret: "8d4899954d7d7ae91ac24b524385b5272bdb9d05",
+    },
+    theme: myTheme,
+    // ...
+    // For more available options, check out the documentation below
+  })
+  
+  gitment.render('blog_comments')
+  // or
+  // gitment.render(document.getElementById('comments'))
+  // or
+  // document.body.appendChild(gitment.render())
+</script>
+                
+                <!-- gitment end -->
+
+                <!-- 来必力City版安装代码 -->
+                
+                <!-- City版安装代码已完成 -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      
+        <aside id="sidebar">
+          <div id="toc" class="toc-article">
+          <strong class="toc-title">Contents</strong>
+          
+            
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#CocoaPods-手册"><span class="toc-nav-text">CocoaPods 手册</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装-CocoaPods"><span class="toc-nav-text">安装 CocoaPods</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用-Podfile"><span class="toc-nav-text">使用 Podfile</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#常用操作"><span class="toc-nav-text">常用操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Podfile样例"><span class="toc-nav-text">Podfile样例</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#发布-Pod-库"><span class="toc-nav-text">发布 Pod 库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#发布公有-Pod-库"><span class="toc-nav-text">发布公有 Pod 库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#操作步骤"><span class="toc-nav-text">操作步骤</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#公有-Pod-Spec-管理"><span class="toc-nav-text">公有 Pod Spec 管理</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#发布私有-Pod-库"><span class="toc-nav-text">发布私有 Pod 库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#操作步骤-1"><span class="toc-nav-text">操作步骤</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#使用私有Pod库"><span class="toc-nav-text">使用私有Pod库</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#指明私有-pod-spec-仓库地址"><span class="toc-nav-text">指明私有 pod spec 仓库地址</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Pod-Spec-Beta-版本说明"><span class="toc-nav-text">Pod Spec Beta 版本说明</span></a></li></ol></li></ol></li></ol>
+            
+          
+          </div>
+        </aside>
+      
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">特色标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#CocoaPods" title="CocoaPods">CocoaPods</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://github.com/evanxlh" target="_blank">我的Github</a></li>
+                    
+                        <li><a href="https://gitee.com/evanxlh" target="_blank">我的Gitee</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+
+
+<style  type="text/css">
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/evanxlh">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; evanxlh 2020 
+                    <br>
+                    Powered by 
+                    <a href="https://github.com/dusign/hexo-theme-snail" target="_blank" rel="noopener">
+                        <i>hexo-theme-snail</i>
+                    </a> | 
+                    <iframe name="star" style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0"
+                        width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=dusign&repo=hexo-theme-snail&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- Search -->
+
+<script src="/js/search.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://evanxlh.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Search -->
+
+    <script type="text/javascript">      
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+            search_path = "search.xml";
+        }
+    var path = "/" + search_path;
+    searchFunc(path, 'local-search-input', 'local-search-result');
+    </script>
+
+
+<!-- busuanzi -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+
+    
+        <!-- background effects line -->
+        
+
+        
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&quot;🌱&quot;,&quot;🍀&quot;, &quot;🍎&quot;,&quot;❤️&quot;,&quot;💖&quot;,&quot;💞&quot;,🍷&quot;,&quot;🌷&quot;,&quot;🦋&quot;]' color='[&quot;rgb(121,93,179)&quot; ,&quot;rgb(76,180,231)&quot; ,&quot;rgb(184,90,154)&quot;]'></script>
+        
+
+        <!-- background effects end -->
+    
+
+    <!--<script size="50" alpha='0.3' zIndex="-999" src="/js/ribbonStatic.js"></script>-->
+    
+        <script src="/js/ribbonDynamic.js"></script>
+    
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+</html>
