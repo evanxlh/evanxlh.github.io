@@ -108,7 +108,7 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#ffmpeg" title="ffmpeg">ffmpeg</a>
+                              <a class="tag" href="/tags/#FFmpeg" title="FFmpeg">FFmpeg</a>
                             
                         </div>
                         <h1>在 MacOS 上编译 ffmpeg 相关音视频库</h1>
@@ -120,7 +120,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                字数: <span class="post-count">916</span>, 
+                                字数: <span class="post-count">917</span>, 
                                 阅读时间: <span class="post-count">3</span> 
                                 分钟
                             </span>
@@ -266,7 +266,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="MacOS-编译-ffmpeg-相关音视频库"><a href="#MacOS-编译-ffmpeg-相关音视频库" class="headerlink" title="MacOS 编译 ffmpeg 相关音视频库"></a>MacOS 编译 ffmpeg 相关音视频库</h1><p>做音视频开发，除了平台提供的SDK外，我们经常会用到一些优秀的第三方开源库，这里我们将介绍下lame, fad-aac, x264的编译及使用。</p>
+                <h1 id="MacOS-编译-FFmpeg-相关音视频库-01"><a href="#MacOS-编译-FFmpeg-相关音视频库-01" class="headerlink" title="MacOS 编译 FFmpeg 相关音视频库 - 01"></a>MacOS 编译 FFmpeg 相关音视频库 - 01</h1><p>做音视频开发，除了平台提供的SDK外，我们经常会用到一些优秀的第三方开源库，这里我们将介绍下lame, fad-aac, x264的编译及使用。</p>
 <h2 id="音视频库介绍"><a href="#音视频库介绍" class="headerlink" title="音视频库介绍"></a>音视频库介绍</h2><h3 id="lame"><a href="#lame" class="headerlink" title="lame"></a><a href="http://lame.sourceforge.net/download.php" target="_blank" rel="noopener">lame</a></h3><p>目前，LAME被认为是中高比特率和VBR的最佳MP3编码器，主要得益于其开发人员的专注工作和开源许可模式，使该项目能够利用来自世界各地的工程资源。 质量和速度的提升仍在继续，可能使LAME成为唯一仍在积极开发的MP3编码器。</p>
 <h3 id="fdk-aac"><a href="#fdk-aac" class="headerlink" title="fdk-aac"></a><a href="https://sourceforge.net/projects/opencore-amr/files/fdk-aac/" target="_blank" rel="noopener">fdk-aac</a></h3><p>Fraunhofer FDK AAC是由Fraunhofer IIS开发的高质量开源AAC编码器库。 它是针对Android正式发布的，但已被移植到其他平台。 Winamp中包含的许可Fraunhofer AAC编解码器（通常称为FhG AAC）与FDK AAC编解码器不同。FDK AAC是一个目前效率很高的aac编解码库。</p>
 <h3 id="x264"><a href="#x264" class="headerlink" title="x264"></a><a href="https://www.videolan.org/developers/x264.html" target="_blank" rel="noopener">x264</a></h3><p>x264是一个免费的开源软件库和VideoLAN开发的命令行实用程序，用于将视频流编码为H.264 / MPEG-4 AVC格式。 它是根据GNU通用公共许可证条款发布的。</p>
@@ -290,8 +290,8 @@
 <li>运行脚本, <code>./build-x264.sh</code> </li>
 </ol>
 <p>你也可以参考脚本使用说明 <a href="https://github.com/masterav/CompileAVLibs/blob/master/x264-20190809-2245/README.md" target="_blank" rel="noopener">x264 shell 脚本使用说明</a>.</p>
-<h3 id="ffmpeg"><a href="#ffmpeg" class="headerlink" title="ffmpeg"></a><a href="https://ffmpeg.org" target="_blank" rel="noopener">ffmpeg</a></h3><p>一种完整的跨平台解决方案，用于录制，转换和流式传输音频和视频。</p>
-<h4 id="Build-ffmpeg"><a href="#Build-ffmpeg" class="headerlink" title="Build ffmpeg"></a>Build ffmpeg</h4><ol>
+<h3 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a><a href="https://ffmpeg.org" target="_blank" rel="noopener">FFmpeg</a></h3><p>一种完整的跨平台解决方案，用于录制，转换和流式传输音频和视频。</p>
+<h4 id="Build-FFmpeg"><a href="#Build-FFmpeg" class="headerlink" title="Build FFmpeg"></a>Build FFmpeg</h4><ol>
 <li>进入目录 <code>ffmpeg-4.2</code> , <code>cd x264-20190809-2245</code>.</li>
 <li>更改脚本文件的权限, <code>sudo chmod 777 build-ffmpeg.sh</code>.</li>
 <li>如果想让ffmpeg使用<code>x264, lame, fdk-aac</code>的话，还请手动将之前编译环节中产生的<code>fat-x264, fat-lame, fat-fdk-aac</code>三个文件夹复制到<code>ffmpeg-4.2/external-libs</code>下面。反之，你需要把<code>X264, LAME, FDK_AAC</code>从<code>build-ffmpeg.sh</code>中注释掉.</li>
@@ -501,7 +501,7 @@ const gitment = new Gitment({
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#MacOS-编译-ffmpeg-相关音视频库"><span class="toc-nav-text">MacOS 编译 ffmpeg 相关音视频库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#音视频库介绍"><span class="toc-nav-text">音视频库介绍</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#lame"><span class="toc-nav-text">lame</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fdk-aac"><span class="toc-nav-text">fdk-aac</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#x264"><span class="toc-nav-text">x264</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#编译"><span class="toc-nav-text">编译</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-lame"><span class="toc-nav-text">Build lame</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-fdk-aac"><span class="toc-nav-text">Build fdk-aac</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-x264"><span class="toc-nav-text">Build x264</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#ffmpeg"><span class="toc-nav-text">ffmpeg</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Build-ffmpeg"><span class="toc-nav-text">Build ffmpeg</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#编译可能碰到的问题"><span class="toc-nav-text">编译可能碰到的问题</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-text">参考</span></a></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#MacOS-编译-FFmpeg-相关音视频库-01"><span class="toc-nav-text">MacOS 编译 FFmpeg 相关音视频库 - 01</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#音视频库介绍"><span class="toc-nav-text">音视频库介绍</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#lame"><span class="toc-nav-text">lame</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fdk-aac"><span class="toc-nav-text">fdk-aac</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#x264"><span class="toc-nav-text">x264</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#编译"><span class="toc-nav-text">编译</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-lame"><span class="toc-nav-text">Build lame</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-fdk-aac"><span class="toc-nav-text">Build fdk-aac</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Build-x264"><span class="toc-nav-text">Build x264</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#FFmpeg"><span class="toc-nav-text">FFmpeg</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Build-FFmpeg"><span class="toc-nav-text">Build FFmpeg</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#编译可能碰到的问题"><span class="toc-nav-text">编译可能碰到的问题</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-text">参考</span></a></li></ol></li></ol>
             
           
           </div>
@@ -523,7 +523,7 @@ const gitment = new Gitment({
                     <h5><a href="/tags/">特色标签</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#ffmpeg" title="ffmpeg">ffmpeg</a>
+                          <a class="tag" href="/tags/#FFmpeg" title="FFmpeg">FFmpeg</a>
                         
                     </div>
                 </section>
