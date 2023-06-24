@@ -16,7 +16,7 @@
     <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <title>
         
-          hexo-create-personal-blog - evanxlh
+          Create personal blog using Hexo + github.io - evanxlh
         
     </title>
 
@@ -109,7 +109,7 @@
                         <div class="tags">
                             
                         </div>
-                        <h1>hexo-create-personal-blog</h1>
+                        <h1>Create personal blog using Hexo + github.io</h1>
                         <h2 class="subheading">使用 Hexo，帮忙您快速搭建自己的博客。</h2>
                         <span class="meta">
                             2023-06-24, evanxlh
@@ -118,7 +118,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                字数: <span class="post-count">506</span>, 
+                                字数: <span class="post-count">668</span>, 
                                 阅读时间: <span class="post-count">2</span> 
                                 分钟
                             </span>
@@ -264,7 +264,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="Hexo-Github-io-搭建个人博客"><a href="#Hexo-Github-io-搭建个人博客" class="headerlink" title="Hexo + Github.io 搭建个人博客"></a>Hexo + Github.io 搭建个人博客</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在安装 Hexo 之前，您需要在您的电脑里安装以下内容：</p>
+                <h1 id="Hexo-github-io-搭建个人博客"><a href="#Hexo-github-io-搭建个人博客" class="headerlink" title="Hexo + github.io 搭建个人博客"></a>Hexo + github.io 搭建个人博客</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在安装 Hexo 之前，您需要在您的电脑里安装以下内容：</p>
 <ul>
 <li>Git</li>
 <li>Node.js</li>
@@ -276,6 +276,17 @@
 <h3 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h3><p>在命令终端中输入以下命令，您就可以在本机查看你的个人博客了，是不是非常方便呢？</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Hexo 在指定文件夹中新建您的博客项目</span></span><br><span class="line">hexo init MyBlog</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动Hexo 服务器, 您就可以在 http://localhost:4000 浏览你的个人博客了</span></span><br><span class="line">cd MyBlog</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 <p>更多内容，请点击 <a href="https://hexo.io/zh-cn/docs/setup" target="_blank" rel="noopener">Hexo 建站</a>。</p>
+<h3 id="创建-github-io-仓库"><a href="#创建-github-io-仓库" class="headerlink" title="创建 github.io 仓库"></a>创建 github.io 仓库</h3><p>github.io 仓库用于部署你的个人博客</p>
+<ol>
+<li>建立名为 <code>&lt;你的 GitHub 用户名&gt;.github.io</code> 的储存库，若之前已将 Hexo 上传至其他储存库，将该储存库重命名即可。</li>
+<li><p>将 Hexo 文件夹中的文件 push 到储存库的默认分支，默认分支通常名为 <code>main</code>，旧一点的储存库可能名为 <code>master</code>。</p>
+</li>
+<li><p>将 <code>main</code> 分支 push 到 GitHub：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin main</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>前往 <code>https://&lt;你的 GitHub 用户名&gt;.github.io</code> 查看网站</p>
+</li>
+</ol>
 <h3 id="开始写作"><a href="#开始写作" class="headerlink" title="开始写作"></a>开始写作</h3><ul>
 <li><p>创建新文章：以一篇名为 &lt;&lt;<strong>My First Article</strong>&gt;&gt; 文章为例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new "My First Article"</span><br></pre></td></tr></table></figure>
@@ -286,8 +297,8 @@
 </ul>
 <p>有关更多写作的内容，请查看 <a href="https://hexo.io/zh-cn/docs/writing" target="_blank" rel="noopener">Hexo 写作</a> 。</p>
 <h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>在部署前，您需要修改 <strong>MyBlog</strong> 根目录下的 <code>_config.yml</code> 文件，需要您填写部署的目标仓库地址(可以配多个)，例如：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">      github: https://github.com/user/myblog.github.io.git</span><br><span class="line">      gitee: https://gitee.com/user/myblog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<font color=red>2021.8.13起，Github要求使用基于令牌的身份验证, 详情见： https://zhuanlan.zhihu.com/p/401978754</font>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">      # 2021.8.13, github 不再支持密码登陆，所以这里使用 ssh 方式登陆</span><br><span class="line">      github: git@github.com:username/username.github.io.git</span><br><span class="line">      gitee: git@github.com:username/myblog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<font color=red>2021.8.13起，Github要求使用基于令牌的身份验证, 不再支持密码登陆，详情见： https://zhuanlan.zhihu.com/p/401978754</font>
 
 
 
@@ -300,7 +311,7 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2023/06/24/cmake-tutorial/" data-toggle="tooltip" data-placement="top" title="cmake-tutorial">&larr; 上一篇</a>
+                        <a href="/2023/06/24/cmake-tutorial/" data-toggle="tooltip" data-placement="top" title="Cmake Tutorial">&larr; 上一篇</a>
                     </li>
                     
                     
@@ -483,7 +494,7 @@ const gitment = new Gitment({
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Hexo-Github-io-搭建个人博客"><span class="toc-nav-text">Hexo + Github.io 搭建个人博客</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装"><span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#个人博客"><span class="toc-nav-text">个人博客</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#建站"><span class="toc-nav-text">建站</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开始写作"><span class="toc-nav-text">开始写作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#部署"><span class="toc-nav-text">部署</span></a></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Hexo-github-io-搭建个人博客"><span class="toc-nav-text">Hexo + github.io 搭建个人博客</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装"><span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#个人博客"><span class="toc-nav-text">个人博客</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#建站"><span class="toc-nav-text">建站</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#创建-github-io-仓库"><span class="toc-nav-text">创建 github.io 仓库</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开始写作"><span class="toc-nav-text">开始写作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#部署"><span class="toc-nav-text">部署</span></a></li></ol></li></ol></li></ol>
             
           
           </div>
@@ -713,7 +724,7 @@ const gitment = new Gitment({
         
 
         
-            <script type="text/javascript" src="/js/mouse-click.js" content='[&quot;🌱&quot;,&quot;🍀&quot;, &quot;🍎&quot;,&quot;❤️&quot;,&quot;💖&quot;,&quot;💞&quot;,🍷&quot;,&quot;🌷&quot;,&quot;🦋&quot;]' color='[&quot;rgb(121,93,179)&quot; ,&quot;rgb(76,180,231)&quot; ,&quot;rgb(184,90,154)&quot;]'></script>
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🌱&#34;,&#34;🍀&#34;, &#34;🍎&#34;,&#34;❤️&#34;,&#34;💖&#34;,&#34;💞&#34;,🍷&#34;,&#34;🌷&#34;,&#34;🦋&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34;]'></script>
         
 
         <!-- background effects end -->
@@ -723,21 +734,6 @@ const gitment = new Gitment({
     
         <script src="/js/ribbonDynamic.js"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>

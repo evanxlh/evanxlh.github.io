@@ -16,7 +16,7 @@
     <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <title>
         
-          cmake-tutorial - evanxlh
+          Cmake Tutorial - evanxlh
         
     </title>
 
@@ -109,8 +109,8 @@
                         <div class="tags">
                             
                         </div>
-                        <h1>cmake-tutorial</h1>
-                        <h2 class="subheading"></h2>
+                        <h1>Cmake Tutorial</h1>
+                        <h2 class="subheading">教你快速登船 CMake, 构建跨平台项目</h2>
                         <span class="meta">
                             2023-06-24, evanxlh
                         </span>
@@ -118,7 +118,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                字数: <span class="post-count">392</span>, 
+                                字数: <span class="post-count">405</span>, 
                                 阅读时间: <span class="post-count">1</span> 
                                 分钟
                             </span>
@@ -280,10 +280,11 @@
 </li>
 <li>在 <strong>source</strong> 文件夹中新增 <code>Tutor.cpp</code> 源文件</li>
 </ul>
-<h2 id="本机构建"><a href="#本机构建" class="headerlink" title="本机构建"></a>本机构建</h2><h3 id="编写-CMakeLists-txt"><a href="#编写-CMakeLists-txt" class="headerlink" title="编写 CMakeLists.txt"></a>编写 CMakeLists.txt</h3><h4 id="仅支持本机"><a href="#仅支持本机" class="headerlink" title="仅支持本机"></a>仅支持本机</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.10)</span><br><span class="line"></span><br><span class="line">set(projectName Demo)</span><br><span class="line"><span class="meta">project($</span><span class="bash">&#123;projectName&#125; VERSION 1.0.0)</span></span><br><span class="line"></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line"></span><br><span class="line"><span class="meta">add_executable($</span><span class="bash">&#123;projectName&#125; main.cpp <span class="built_in">source</span>/Tutor.cpp)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">target_include_directories($</span><span class="bash">&#123;projectName&#125; PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/include)</span></span><br></pre></td></tr></table></figure>
+<h2 id="编写-CMakeLists-txt"><a href="#编写-CMakeLists-txt" class="headerlink" title="编写 CMakeLists.txt"></a>编写 CMakeLists.txt</h2><h4 id="仅支持本机"><a href="#仅支持本机" class="headerlink" title="仅支持本机"></a>仅支持本机</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.10)</span><br><span class="line"></span><br><span class="line">set(projectName Demo)</span><br><span class="line"><span class="meta">project($</span><span class="bash">&#123;projectName&#125; VERSION 1.0.0)</span></span><br><span class="line"></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line"></span><br><span class="line"><span class="meta">add_executable($</span><span class="bash">&#123;projectName&#125; main.cpp <span class="built_in">source</span>/Tutor.cpp)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">target_include_directories($</span><span class="bash">&#123;projectName&#125; PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/include)</span></span><br></pre></td></tr></table></figure>
 <h4 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.10)</span><br><span class="line"></span><br><span class="line">set(projectName Demo)</span><br><span class="line"><span class="meta">project($</span><span class="bash">&#123;projectName&#125; VERSION 1.0.0)</span></span><br><span class="line"></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line"></span><br><span class="line">if(WIN32)</span><br><span class="line">    set(CMAKE_CXX_COMPILER "MSVC")</span><br><span class="line">elseif(UNIX)</span><br><span class="line">    set(CMAKE_CXX_COMPILER "g++")</span><br><span class="line">endif()</span><br><span class="line"></span><br><span class="line"><span class="meta">add_executable($</span><span class="bash">&#123;projectName&#125; main.cpp <span class="built_in">source</span>/Tutor.cpp)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">target_include_directories($</span><span class="bash">&#123;projectName&#125; PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/include)</span></span><br></pre></td></tr></table></figure>
-<h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd build</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 根据 CMakeLists.txt 文件生成工程</span></span><br><span class="line">cmake ..</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将源文件编译成目标文件，并进行链接, 生成可执行文件</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编译完成后，在 build 目录下会生成可执行文件 Demo</span></span><br><span class="line">./Demo</span><br></pre></td></tr></table></figure>
+<h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd build</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 根据 CMakeLists.txt 文件生成工程</span></span><br><span class="line">cmake ..</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将源文件编译成目标文件，并进行链接, 生成可执行文件</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h2 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编译完成后，在 build 目录下会生成可执行文件 Demo</span></span><br><span class="line">./Demo</span><br></pre></td></tr></table></figure>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>本文用到的 Demo 示例：<a href="https://gitee.com/evanxlh/cmake-tutorials.git" target="_blank" rel="noopener">https://gitee.com/evanxlh/cmake-tutorials.git</a></p>
 
                 
                 <hr>
@@ -292,7 +293,7 @@
                     
                     
                     <li class="next">
-                        <a href="/2023/06/24/hexo-create-personal-blog/" data-toggle="tooltip" data-placement="top" title="hexo-create-personal-blog">下一篇 &rarr;</a>
+                        <a href="/2023/06/24/hexo-create-personal-blog/" data-toggle="tooltip" data-placement="top" title="Create personal blog using Hexo + github.io">下一篇 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -470,7 +471,7 @@ const gitment = new Gitment({
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#CMake-快速指南"><span class="toc-nav-text">CMake 快速指南</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#创建项目文件"><span class="toc-nav-text">创建项目文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#本机构建"><span class="toc-nav-text">本机构建</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#编写-CMakeLists-txt"><span class="toc-nav-text">编写 CMakeLists.txt</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#仅支持本机"><span class="toc-nav-text">仅支持本机</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#跨平台"><span class="toc-nav-text">跨平台</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#构建"><span class="toc-nav-text">构建</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#运行程序"><span class="toc-nav-text">运行程序</span></a></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#CMake-快速指南"><span class="toc-nav-text">CMake 快速指南</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#创建项目文件"><span class="toc-nav-text">创建项目文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#编写-CMakeLists-txt"><span class="toc-nav-text">编写 CMakeLists.txt</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#仅支持本机"><span class="toc-nav-text">仅支持本机</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#跨平台"><span class="toc-nav-text">跨平台</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#构建"><span class="toc-nav-text">构建</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行程序"><span class="toc-nav-text">运行程序</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#附录"><span class="toc-nav-text">附录</span></a></li></ol></li></ol>
             
           
           </div>
@@ -700,7 +701,7 @@ const gitment = new Gitment({
         
 
         
-            <script type="text/javascript" src="/js/mouse-click.js" content='[&quot;🌱&quot;,&quot;🍀&quot;, &quot;🍎&quot;,&quot;❤️&quot;,&quot;💖&quot;,&quot;💞&quot;,🍷&quot;,&quot;🌷&quot;,&quot;🦋&quot;]' color='[&quot;rgb(121,93,179)&quot; ,&quot;rgb(76,180,231)&quot; ,&quot;rgb(184,90,154)&quot;]'></script>
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🌱&#34;,&#34;🍀&#34;, &#34;🍎&#34;,&#34;❤️&#34;,&#34;💖&#34;,&#34;💞&#34;,🍷&#34;,&#34;🌷&#34;,&#34;🦋&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34;]'></script>
         
 
         <!-- background effects end -->
@@ -710,21 +711,6 @@ const gitment = new Gitment({
     
         <script src="/js/ribbonDynamic.js"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>
