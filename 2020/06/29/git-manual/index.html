@@ -120,8 +120,8 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                字数: <span class="post-count">1.9k</span>, 
-                                阅读时间: <span class="post-count">7</span> 
+                                字数: <span class="post-count">1.7k</span>, 
+                                阅读时间: <span class="post-count">6</span> 
                                 分钟
                             </span>
                             <div class="blank_box"></div>
@@ -292,47 +292,37 @@
 </ul>
 <h3 id="关闭-SSL-认证"><a href="#关闭-SSL-认证" class="headerlink" title="关闭 SSL 认证"></a>关闭 SSL 认证</h3><p>添加私有仓库可能出现这个问题，可以用以下命令来解决：</p>
 <p>git config —global http.sslVerify false</p>
-<h2 id="Git-命令自动补齐"><a href="#Git-命令自动补齐" class="headerlink" title="Git 命令自动补齐"></a>Git 命令自动补齐</h2><p>使用命令自动补齐功能后，我们在敲 git 命令时，就可以用 tab 键来完成自动补齐，甚是方便。</p>
-<p>安装命令自动补齐工具:</p>
-<ol>
-<li><p>从命令行终端安装 <em>bash-completion</em></p>
-<p>brew install bash-completion</p>
+<h2 id="Git-仓库"><a href="#Git-仓库" class="headerlink" title="Git 仓库"></a>Git 仓库</h2><h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><ul>
+<li><p>克隆仓库到本地</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:ReactiveX/RxSwift.git</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<ol>
-<li><p>查看 <em>bash-completion</em> 信息并按照提示更新 <em>~/.bash_profile</em> 文件</p>
-<p>brew info bash-completion</p>
+<li><p>查看远程仓库地址</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<p>   我的 <em>Terminal</em> 提示为：</p>
-   <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Add the following line to your ~/.bash_profile:</span><br><span class="line">  [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] &amp;&amp; . "/usr/local/etc/profile.d/bash_completion.sh"</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>更新  <em>~/.bash_profile</em></p>
-<p>我的 macos 版本为：Catalina 10.15.6， <em>~/.bash_profile</em> 更新内容为：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Setting PATH <span class="keyword">for</span> Python 3.8</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> The original version is saved <span class="keyword">in</span> .bash_profile.pysave</span></span><br><span class="line">PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:$&#123;PATH&#125;"</span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] &amp;&amp; . "/usr/local/etc/profile.d/bash_completion.sh"</span><br></pre></td></tr></table></figure>
+<li><p>更改Git远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote set-url origin git@github.com:ReactiveX/RxSwift.git</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>下载 <em>git-completion.bash 文件</em> (可以从 <a href="https://github.com/git/git.git" target="_blank" rel="noopener">Git 工程</a>  <em>contrib/completion</em> 目录中下载)， 并将其复制到 <em>/usr/local/opt/bash-completion/etc/bash_completion.d</em> 这个目录下 ( 这个目录可以从 第 2 步中的 <em>brew info bash-completion</em> 提示中获得)。</p>
+<li><p>添加远程仓库: 我们可以给本地仓库绑定多个远程仓库，这样可以把修改推送到多个远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add gitee git@gitee.com:ReactiveX/RxSwift.git</span><br><span class="line">git push origin</span><br><span class="line">git push gitee</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>brew unlink bash-completion</p>
-</li>
-<li><p>brew link bash-completion</p>
-</li>
-<li><p>重新打开 <em>Terminal</em> , 既可体验命令自动补齐。</p>
-</li>
-</ol>
-<h2 id="Git-仓库"><a href="#Git-仓库" class="headerlink" title="Git 仓库"></a>Git 仓库</h2><h3 id="克隆仓库到本地"><a href="#克隆仓库到本地" class="headerlink" title="克隆仓库到本地"></a>克隆仓库到本地</h3><p>git clone git@github.com:ReactiveX/RxSwift.git</p>
-<h3 id="查看远程仓库地址"><a href="#查看远程仓库地址" class="headerlink" title="查看远程仓库地址"></a>查看远程仓库地址</h3><p>git remote -v</p>
-<h3 id="更改Git远程仓库"><a href="#更改Git远程仓库" class="headerlink" title="更改Git远程仓库"></a>更改Git远程仓库</h3><p>git remote set-url origin git@github.com:ReactiveX/RxSwift.git</p>
-<h3 id="将本地工程推送到远程空仓库"><a href="#将本地工程推送到远程空仓库" class="headerlink" title="将本地工程推送到远程空仓库"></a>将本地工程推送到远程空仓库</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origin git@github.com:evanxlh/BluetoothCentral.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-<h3 id="Git-Submodule"><a href="#Git-Submodule" class="headerlink" title="Git Submodule"></a>Git Submodule</h3><h4 id="添加-Submodule"><a href="#添加-Submodule" class="headerlink" title="添加 Submodule"></a>添加 Submodule</h4><p>​    git submodule add git://github.com:xxx/project.git deps/mysql</p>
-<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>​    git submodule init</p>
-<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><ul>
-<li><p>git submodule update </p>
-</li>
-<li><p>git submodule update  —init —recursive</p>
+<li><p>将本地仓库推送到远程空仓库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origin git@github.com:evanxlh/BluetoothCentral.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="直接下载含有submodule的仓库"><a href="#直接下载含有submodule的仓库" class="headerlink" title="直接下载含有submodule的仓库"></a>直接下载含有submodule的仓库</h4><p>git clone <a href="mailto:git@github.com">git@github.com</a>:xxx/pod-project.git —recursive</p>
+<h3 id="Git-Submodule"><a href="#Git-Submodule" class="headerlink" title="Git Submodule"></a>Git Submodule</h3><ul>
+<li><p>添加 Submodule</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git submodule add git://github.com:xxx/project.git deps/mysql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git submodule init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git submodule update </span><br><span class="line">git submodule update  --init --recursive</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接下载含有submodule的仓库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:xxx/pod-project.git --recursive</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <h2 id="Git分支"><a href="#Git分支" class="headerlink" title="Git分支"></a>Git分支</h2><h3 id="列出分支"><a href="#列出分支" class="headerlink" title="列出分支"></a>列出分支</h3><ul>
 <li><p>列出所有本地分支</p>
 <p>git branch</p>
@@ -687,7 +677,7 @@ const gitment = new Gitment({
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Git-命令便捷手册"><span class="toc-nav-text">Git 命令便捷手册</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git配置"><span class="toc-nav-text">Git配置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#配置用户信息"><span class="toc-nav-text">配置用户信息</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查看配置信息"><span class="toc-nav-text">查看配置信息</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#设置命令别名"><span class="toc-nav-text">设置命令别名</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开启颜色显示"><span class="toc-nav-text">开启颜色显示</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#编辑-Config"><span class="toc-nav-text">编辑 Config</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#关闭-SSL-认证"><span class="toc-nav-text">关闭 SSL 认证</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git-命令自动补齐"><span class="toc-nav-text">Git 命令自动补齐</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git-仓库"><span class="toc-nav-text">Git 仓库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#克隆仓库到本地"><span class="toc-nav-text">克隆仓库到本地</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查看远程仓库地址"><span class="toc-nav-text">查看远程仓库地址</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#更改Git远程仓库"><span class="toc-nav-text">更改Git远程仓库</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#将本地工程推送到远程空仓库"><span class="toc-nav-text">将本地工程推送到远程空仓库</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Git-Submodule"><span class="toc-nav-text">Git Submodule</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#添加-Submodule"><span class="toc-nav-text">添加 Submodule</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#初始化"><span class="toc-nav-text">初始化</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#更新"><span class="toc-nav-text">更新</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#直接下载含有submodule的仓库"><span class="toc-nav-text">直接下载含有submodule的仓库</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git分支"><span class="toc-nav-text">Git分支</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#列出分支"><span class="toc-nav-text">列出分支</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分支创建与切换"><span class="toc-nav-text">分支创建与切换</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#删除分支"><span class="toc-nav-text">删除分支</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#跟踪远程分支"><span class="toc-nav-text">跟踪远程分支</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#分支合并"><span class="toc-nav-text">分支合并</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#git-rebase"><span class="toc-nav-text">git rebase</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#git-merge"><span class="toc-nav-text">git merge</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git-标签"><span class="toc-nav-text">Git 标签</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#删除-tag"><span class="toc-nav-text">删除 tag</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#列出本地-tag"><span class="toc-nav-text">列出本地 tag</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#代码修改及提交"><span class="toc-nav-text">代码修改及提交</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#忽略不想要提交的文件"><span class="toc-nav-text">忽略不想要提交的文件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#将代码加入-git-跟踪管理"><span class="toc-nav-text">将代码加入 git 跟踪管理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#提交本地修改"><span class="toc-nav-text">提交本地修改</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#暂存修改的代码"><span class="toc-nav-text">暂存修改的代码</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Git-Patch"><span class="toc-nav-text">Git Patch</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#创建-Patch"><span class="toc-nav-text">创建 Patch</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#应用-Patch"><span class="toc-nav-text">应用 Patch</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#代码恢复"><span class="toc-nav-text">代码恢复</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查看操作日志，以下两种方式都可以"><span class="toc-nav-text">查看操作日志，以下两种方式都可以</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#进行恢复"><span class="toc-nav-text">进行恢复</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#成功的-Git-分支模型"><span class="toc-nav-text">成功的 Git 分支模型</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#意外发现"><span class="toc-nav-text">意外发现</span></a></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Git-命令便捷手册"><span class="toc-nav-text">Git 命令便捷手册</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git配置"><span class="toc-nav-text">Git配置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#配置用户信息"><span class="toc-nav-text">配置用户信息</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查看配置信息"><span class="toc-nav-text">查看配置信息</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#设置命令别名"><span class="toc-nav-text">设置命令别名</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开启颜色显示"><span class="toc-nav-text">开启颜色显示</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#编辑-Config"><span class="toc-nav-text">编辑 Config</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#关闭-SSL-认证"><span class="toc-nav-text">关闭 SSL 认证</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git-仓库"><span class="toc-nav-text">Git 仓库</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#常用操作"><span class="toc-nav-text">常用操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Git-Submodule"><span class="toc-nav-text">Git Submodule</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git分支"><span class="toc-nav-text">Git分支</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#列出分支"><span class="toc-nav-text">列出分支</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分支创建与切换"><span class="toc-nav-text">分支创建与切换</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#删除分支"><span class="toc-nav-text">删除分支</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#跟踪远程分支"><span class="toc-nav-text">跟踪远程分支</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#分支合并"><span class="toc-nav-text">分支合并</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#git-rebase"><span class="toc-nav-text">git rebase</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#git-merge"><span class="toc-nav-text">git merge</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Git-标签"><span class="toc-nav-text">Git 标签</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#删除-tag"><span class="toc-nav-text">删除 tag</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#列出本地-tag"><span class="toc-nav-text">列出本地 tag</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#代码修改及提交"><span class="toc-nav-text">代码修改及提交</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#忽略不想要提交的文件"><span class="toc-nav-text">忽略不想要提交的文件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#将代码加入-git-跟踪管理"><span class="toc-nav-text">将代码加入 git 跟踪管理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#提交本地修改"><span class="toc-nav-text">提交本地修改</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#暂存修改的代码"><span class="toc-nav-text">暂存修改的代码</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Git-Patch"><span class="toc-nav-text">Git Patch</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#创建-Patch"><span class="toc-nav-text">创建 Patch</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#应用-Patch"><span class="toc-nav-text">应用 Patch</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#代码恢复"><span class="toc-nav-text">代码恢复</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查看操作日志，以下两种方式都可以"><span class="toc-nav-text">查看操作日志，以下两种方式都可以</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#进行恢复"><span class="toc-nav-text">进行恢复</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#成功的-Git-分支模型"><span class="toc-nav-text">成功的 Git 分支模型</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#意外发现"><span class="toc-nav-text">意外发现</span></a></li></ol></li></ol>
             
           
           </div>
@@ -809,7 +799,7 @@ const gitment = new Gitment({
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; evanxlh 2021 
+                    Copyright &copy; evanxlh 2023 
                     <br>
                     Powered by 
                     <a href="https://github.com/dusign/hexo-theme-snail" target="_blank" rel="noopener">
