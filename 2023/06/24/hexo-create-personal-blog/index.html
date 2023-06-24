@@ -118,7 +118,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                字数: <span class="post-count">441</span>, 
+                                字数: <span class="post-count">480</span>, 
                                 阅读时间: <span class="post-count">1</span> 
                                 分钟
                             </span>
@@ -270,7 +270,7 @@
 <li>Node.js</li>
 </ul>
 <p>接下来在命令终端执行以下两行命令就可以完成 Hexo 安装：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用 npm 安装 Hexo</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hexo 3.0 把服务器独立成了个别模块，您必须先安装 hexo-server 才能使用</span></span><br><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用 npm 安装 Hexo</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hexo 3.0 把服务器独立成了个别模块，您必须先安装 hexo-server 才能使用</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hexo Server 可以用于本地预览</span></span><br><span class="line">npm install hexo-server --save</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装部署到远程git仓库的插件，方便后面的一键部署</span></span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <p>安装这一部分的内容，您都可以在 <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo 官方文档</a> 中找到，这里就不再累赘。</p>
 <h2 id="个人博客"><a href="#个人博客" class="headerlink" title="个人博客"></a>个人博客</h2><p>安装好 Hexo 后，我们就可以开始搭建我们自己的博客啦！下面将以创建一个名为 <strong>MyBlog</strong> 的博客为例：</p>
 <h3 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h3><p>在命令终端中输入以下命令，您就可以在本机查看你的个人博客了，是不是非常方便呢？</p>
@@ -288,7 +288,7 @@
 <h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>在部署前，您需要修改 <strong>MyBlog</strong> 根目录下的 <code>_config.yml</code> 文件，需要您填写部署的目标仓库地址(可以配多个)，例如：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">      github: https://github.com/user/myblog.github.io.git</span><br><span class="line">      gitee: https://gitee.com/user/myblog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 <p>部署的目标仓库设置好的，就可以一键生成静态网页，并进行发布：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo clean</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
 
                 
                 <hr>
