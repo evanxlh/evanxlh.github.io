@@ -16,11 +16,11 @@
     <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <title>
         
-          hexo-create-personal-blog - evanxlh
+          cmake-tutorial - evanxlh
         
     </title>
 
-    <link rel="canonical" href="https://evanxlh.github.io/2023/06/24/hexo-create-personal-blog/">
+    <link rel="canonical" href="https://evanxlh.github.io/2023/06/24/cmake-tutorial/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -109,8 +109,8 @@
                         <div class="tags">
                             
                         </div>
-                        <h1>hexo-create-personal-blog</h1>
-                        <h2 class="subheading">使用 Hexo，帮忙您快速搭建自己的博客。</h2>
+                        <h1>cmake-tutorial</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             2023-06-24, evanxlh
                         </span>
@@ -118,7 +118,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                字数: <span class="post-count">441</span>, 
+                                字数: <span class="post-count">392</span>, 
                                 阅读时间: <span class="post-count">1</span> 
                                 分钟
                             </span>
@@ -264,44 +264,35 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="Hexo-Github-io-搭建个人博客"><a href="#Hexo-Github-io-搭建个人博客" class="headerlink" title="Hexo + Github.io 搭建个人博客"></a>Hexo + Github.io 搭建个人博客</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在安装 Hexo 之前，您需要在您的电脑里安装以下内容：</p>
+                <h1 id="CMake-快速指南"><a href="#CMake-快速指南" class="headerlink" title="CMake 快速指南"></a>CMake 快速指南</h1><p>首先，请自行在电脑里安装好 CMake,  可以去官网直接下载 GUI 程序: <a href="https://cmake.org/download/" target="_blank" rel="noopener">https://cmake.org/download/</a>, </p>
+<p>也可以通过命令行工具直接安装。</p>
+<h2 id="创建项目文件"><a href="#创建项目文件" class="headerlink" title="创建项目文件"></a>创建项目文件</h2><p>接下来，我们一起来创建一个名为 Demo 的项目，来介绍 CMake 的使用，以下我就直接贴上命令了，直接在命令终端敲一行，执行一行就OK。</p>
 <ul>
-<li>Git</li>
-<li>Node.js</li>
-</ul>
-<p>接下来在命令终端执行以下两行命令就可以完成 Hexo 安装：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用 npm 安装 Hexo</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hexo 3.0 把服务器独立成了个别模块，您必须先安装 hexo-server 才能使用</span></span><br><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
-<p>安装这一部分的内容，您都可以在 <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo 官方文档</a> 中找到，这里就不再累赘。</p>
-<h2 id="个人博客"><a href="#个人博客" class="headerlink" title="个人博客"></a>个人博客</h2><p>安装好 Hexo 后，我们就可以开始搭建我们自己的博客啦！下面将以创建一个名为 <strong>MyBlog</strong> 的博客为例：</p>
-<h3 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h3><p>在命令终端中输入以下命令，您就可以在本机查看你的个人博客了，是不是非常方便呢？</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Hexo 在指定文件夹中新建您的博客项目</span></span><br><span class="line">hexo init MyBlog</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动Hexo 服务器, 您就可以在 http://localhost:4000 浏览你的个人博客了</span></span><br><span class="line">cd MyBlog</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<p>更多内容，请点击 <a href="https://hexo.io/zh-cn/docs/setup" target="_blank" rel="noopener">Hexo 建站</a>。</p>
-<h3 id="开始写作"><a href="#开始写作" class="headerlink" title="开始写作"></a>开始写作</h3><ul>
-<li><p>创建新文章：以一篇名为 &lt;&lt;<strong>My First Article</strong>&gt;&gt; 文章为例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new "My First Article"</span><br></pre></td></tr></table></figure>
+<li><p>创建项目目录结构</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir Demo</span><br><span class="line">cd Demo</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> 用于存放源文件</span></span><br><span class="line">mkdir source</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> include 用于存放提供给外界使用的头文件</span></span><br><span class="line">mkdir include</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> build 用于生成工程及编译</span></span><br><span class="line">mkdir build</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>编辑文章：<code>MyBlog/source/_posts/My-First-Article.md</code></p>
-<p>新创建的文章默认位于 source/_posts 目录下面，直接编辑 mark down 文件即可。</p>
+<li><p>在 <strong>Demo</strong> 根目录下新增 <code>CMakeLists.txt</code> 空文件。</p>
 </li>
+<li><p>在 <strong>Demo</strong> 根目录新增源代码 <code>main.cpp</code></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello CMake, I love you!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <strong>include</strong> 文件夹中新增 <code>Tutor.h</code> 头文件</p>
+</li>
+<li>在 <strong>source</strong> 文件夹中新增 <code>Tutor.cpp</code> 源文件</li>
 </ul>
-<p>有关更多写作的内容，请查看 <a href="https://hexo.io/zh-cn/docs/writing" target="_blank" rel="noopener">Hexo 写作</a> 。</p>
-<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>在部署前，您需要修改 <strong>MyBlog</strong> 根目录下的 <code>_config.yml</code> 文件，需要您填写部署的目标仓库地址(可以配多个)，例如：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">      github: https://github.com/user/myblog.github.io.git</span><br><span class="line">      gitee: https://gitee.com/user/myblog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>部署的目标仓库设置好的，就可以一键生成静态网页，并进行发布：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<h2 id="本机构建"><a href="#本机构建" class="headerlink" title="本机构建"></a>本机构建</h2><h3 id="编写-CMakeLists-txt"><a href="#编写-CMakeLists-txt" class="headerlink" title="编写 CMakeLists.txt"></a>编写 CMakeLists.txt</h3><h4 id="仅支持本机"><a href="#仅支持本机" class="headerlink" title="仅支持本机"></a>仅支持本机</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.10)</span><br><span class="line"></span><br><span class="line">set(projectName Demo)</span><br><span class="line"><span class="meta">project($</span><span class="bash">&#123;projectName&#125; VERSION 1.0.0)</span></span><br><span class="line"></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line"></span><br><span class="line"><span class="meta">add_executable($</span><span class="bash">&#123;projectName&#125; main.cpp <span class="built_in">source</span>/Tutor.cpp)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">target_include_directories($</span><span class="bash">&#123;projectName&#125; PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/include)</span></span><br></pre></td></tr></table></figure>
+<h4 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.10)</span><br><span class="line"></span><br><span class="line">set(projectName Demo)</span><br><span class="line"><span class="meta">project($</span><span class="bash">&#123;projectName&#125; VERSION 1.0.0)</span></span><br><span class="line"></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line"></span><br><span class="line">if(WIN32)</span><br><span class="line">    set(CMAKE_CXX_COMPILER "MSVC")</span><br><span class="line">elseif(UNIX)</span><br><span class="line">    set(CMAKE_CXX_COMPILER "g++")</span><br><span class="line">endif()</span><br><span class="line"></span><br><span class="line"><span class="meta">add_executable($</span><span class="bash">&#123;projectName&#125; main.cpp <span class="built_in">source</span>/Tutor.cpp)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">target_include_directories($</span><span class="bash">&#123;projectName&#125; PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/include)</span></span><br></pre></td></tr></table></figure>
+<h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd build</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 根据 CMakeLists.txt 文件生成工程</span></span><br><span class="line">cmake ..</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将源文件编译成目标文件，并进行链接, 生成可执行文件</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编译完成后，在 build 目录下会生成可执行文件 Demo</span></span><br><span class="line">./Demo</span><br></pre></td></tr></table></figure>
 
                 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2023/06/24/cmake-tutorial/" data-toggle="tooltip" data-placement="top" title="cmake-tutorial">&larr; 上一篇</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2021/12/25/string-in-swift/" data-toggle="tooltip" data-placement="top" title="String in Swift">下一篇 &rarr;</a>
+                        <a href="/2023/06/24/hexo-create-personal-blog/" data-toggle="tooltip" data-placement="top" title="hexo-create-personal-blog">下一篇 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -439,7 +430,7 @@ const myTheme = {
   }
 }
 const gitment = new Gitment({
-    id: 'Sat Jun 24 2023 21:46:26 GMT+0800', // optional
+    id: 'Sat Jun 24 2023 22:17:25 GMT+0800', // optional
     owner: "evanxlh",
     repo: "MyBlogComments",
     oauth: {
@@ -479,7 +470,7 @@ const gitment = new Gitment({
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Hexo-Github-io-搭建个人博客"><span class="toc-nav-text">Hexo + Github.io 搭建个人博客</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装"><span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#个人博客"><span class="toc-nav-text">个人博客</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#建站"><span class="toc-nav-text">建站</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开始写作"><span class="toc-nav-text">开始写作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#部署"><span class="toc-nav-text">部署</span></a></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#CMake-快速指南"><span class="toc-nav-text">CMake 快速指南</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#创建项目文件"><span class="toc-nav-text">创建项目文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#本机构建"><span class="toc-nav-text">本机构建</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#编写-CMakeLists-txt"><span class="toc-nav-text">编写 CMakeLists.txt</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#仅支持本机"><span class="toc-nav-text">仅支持本机</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#跨平台"><span class="toc-nav-text">跨平台</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#构建"><span class="toc-nav-text">构建</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#运行程序"><span class="toc-nav-text">运行程序</span></a></li></ol></li></ol></li></ol>
             
           
           </div>
