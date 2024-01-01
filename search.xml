@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>电脑使用技巧(Computer Skills)</title>
+      <link href="/2024/01/01/computer-skills/"/>
+      <url>/2024/01/01/computer-skills/</url>
+      
+        <content type="html"><![CDATA[<h1 id="电脑使用技巧-Computer-Skills"><a href="#电脑使用技巧-Computer-Skills" class="headerlink" title="电脑使用技巧(Computer Skills)"></a>电脑使用技巧(Computer Skills)</h1><h2 id="Unix-Shell-命令"><a href="#Unix-Shell-命令" class="headerlink" title="Unix Shell 命令"></a>Unix Shell 命令</h2><h3 id="查找与删除文件"><a href="#查找与删除文件" class="headerlink" title="查找与删除文件"></a>查找与删除文件</h3><ul><li><p>在当前文件夹中查找与删除(忽略子文件夹，即<font color=red>非递归</font>&gt;查找与删除)</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls *.o</span><br><span class="line">rm *.o</span><br></pre></td></tr></table></figure></li><li><p>在当前文件夹与子文件夹中查找与删除(即<font color=red>递归</font>查找与删除)</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find . -name "*.o" -type f</span><br><span class="line">find . -name "*.o" -type f -delete</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Computer,电脑使用技巧, Mac </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Cmake Tutorial</title>
       <link href="/2023/06/24/cmake-tutorial/"/>
       <url>/2023/06/24/cmake-tutorial/</url>
